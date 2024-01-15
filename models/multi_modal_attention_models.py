@@ -19,11 +19,11 @@ class Visual_Modality_Attention(nn.Module):
     def forward(self, img, audio):
         W_q_a = self.q_a(audio)  # Q: batch_size * seq_len * dim_k
         W_q_v = self.q_a(img)  # Q: batch_size * seq_len * dim_k
-        w_k_a = self.k_a(audio)
+        W_k_a = self.k_a(audio)
         W_k_v = self.k_v(img) # Q: batch_size * seq_len * dim_k
          
         atten_vv = nn.Softmax(dim=-1)(torch.bmm(W_q_v,W_k_v.permute(0,2,1))) * self._norm_fact # Q * K.T() # batch_size * seq_len * seq_len
-        atten_va = nn.Softmax(dim=-1)(torch.bmm(W_q_v,w_k_a.permute(0,2,1))) * self._norm_fact # Q * K.T() # batch_size * seq_len * seq_len
+        atten_va = nn.Softmax(dim=-1)(torch.bmm(W_q_v,W_k_a.permute(0,2,1))) * self._norm_fact # Q * K.T() # batch_size * seq_len * seq_len
 
         atten_B_kv = self.joint_attention_map(torch.bmm(atten_va,audio),torch.bmm(atten_vv,img))
         # output_i = torch.bmm(atten_c,img)
