@@ -8,7 +8,7 @@ from base_model import BaseModel, BaseModelParams, BaseDataIter
 # coding: utf-8
 
 
-DATA_DIR = 'E:/Doctor-coder/cross-modal-dataset/'
+DATA_DIR = './cross-modal-dataset/'
 class DataIter(BaseDataIter):
     def __init__(self, batch_size):
         BaseDataIter.__init__(self, batch_size)
@@ -47,7 +47,6 @@ class DataIter(BaseDataIter):
             batch_img_feats = self.test_img_feats[i*self.batch_size : (i+1)*self.batch_size]
             batch_txt_vecs = self.test_txt_vecs[i*self.batch_size : (i+1)*self.batch_size]
             batch_labels = self.test_labels[i*self.batch_size : (i+1)*self.batch_size]
-            # 标签onehot编码
             # test_onehot = to_categorical(batch_labels-1, num_classes=10)
             yield batch_img_feats, batch_txt_vecs, batch_labels, i
             # yield batch_img_feats, batch_txt_vecs, test_onehot, i
@@ -55,7 +54,7 @@ class DataIter(BaseDataIter):
 def list_2_tensor(input):
     target = np.array(input)
     output = torch.from_numpy(target)
-    return output  # list转换为tensors列表格式的数据类型。
+    return output  
 
 def train():
     num_epoch = 1
