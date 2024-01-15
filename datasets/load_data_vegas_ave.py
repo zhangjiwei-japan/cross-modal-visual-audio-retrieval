@@ -17,19 +17,7 @@ def load_dataset(load_path):
     visual_train = f["visual_train"]
     audio_train = f["audio_train"]
     lab_train = f["lab_train"] 
-
-    # 标签onehot编码
-    # y_train_onehot, y_test_onehot = to_categorical(lab_train, num_classes=10),to_categorical(lab_test, num_classes=10)
-    # # scale data visual
-    # t_visual_ave = MinMaxScaler()
-    # # t_visual.fit(visual_train)
-    # visual_train = t_visual_ave.fit_transform(visual_train)
-    # visual_test = t_visual_ave.transform(visual_test)
-
-    # t_audio_ave = MinMaxScaler()
-    # # t_audio.fit(audio_train)
-    # audio_train = t_audio_ave.fit_transform(audio_train)
-    # audio_test = t_audio_ave.transform(audio_test)
+    
 
     return visual_train,audio_train,visual_test,audio_test,lab_train,lab_test           
 
@@ -43,17 +31,6 @@ def load_dataset_train(load_path,train_size):
     visual_train = f["visual_train"]
     audio_train = f["audio_train"]
     lab_train = f["lab_train"] 
-
-    # scale data visual
-    # t_visual_ave = MinMaxScaler()
-    # # t_visual.fit(visual_train)
-    # visual_train_scaled = t_visual_ave.fit_transform(visual_train)
-    # visual_test_scaled = t_visual_ave.transform(visual_test)
-
-    # t_audio_ave = MinMaxScaler()
-    # # t_audio.fit(audio_train)
-    # audio_train_scaled = t_audio_ave.fit_transform(audio_train)
-    # audio_test_scaled = t_audio_ave.transform(audio_test)
 
     lab_train = torch.tensor(lab_train)
     lab_train = lab_train.view(lab_train.size(0),1)
@@ -77,17 +54,6 @@ def load_dataset_test(load_path,test_size):
     audio_train = f["audio_train"]
     lab_train = f["lab_train"] 
 
-    # scale data visual
-    # t_visual_ave = MinMaxScaler()
-    # # t_visual.fit(visual_train)
-    # visual_train_scaled = t_visual_ave.fit_transform(visual_train)
-    # visual_test_scaled = t_visual_ave.transform(visual_test)
-
-    # t_audio_ave = MinMaxScaler()
-    # # t_audio.fit(audio_train)
-    # audio_train_scaled = t_audio_ave.fit_transform(audio_train)
-    # audio_test_scaled = t_audio_ave.transform(audio_test)
-
 
     lab_test = torch.tensor(lab_test)
     lab_test = lab_test.view(lab_test.size(0),1)
@@ -101,8 +67,7 @@ def load_dataset_test(load_path,test_size):
     return data_loader_visual,data_loader_audio
 
 if __name__ == "__main__":
-    base_dir = "E:/Doctor-coder/multi-level-attention-2023/datasets/"
-    # load_path =  base_dir +"vegas_feature.h5"
+    base_dir = "./datasets/"
     load_path =  base_dir +"AVE_feature_updated_squence.h5"
     test_size = 128
     train_size = 128
@@ -114,6 +79,5 @@ if __name__ == "__main__":
             labels_visual = data[0][1].cuda()
             inputs_audio = data[1][0].cuda()
             labels_audio = data[1][1].cuda()
-            
-            print("epoch", epoch, "的第" , i, "个inputs", inputs_visual.shape, "labels", labels_audio.shape)
+        
 
