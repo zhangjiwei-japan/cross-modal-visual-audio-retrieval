@@ -20,6 +20,6 @@ Download routines for the datasets are not provided in the repository. Please do
 - Original Dataset homepage:https://sites.google.com/view/audiovisualresearch
 
 ## Contact
-If you have any questions, please email jiweizhang@nii.ac.jp
+If you have any questions, please email s210068@wakayama-u.ac.jp
 ## Reference
 Zhang, Jiwei, et al. "Variational Autoencoder with CCA for Audio-Visual Cross-Modal Retrieval." ACM Transactions on Multimedia Computing, Communications and Applications (2022).
