@@ -36,7 +36,7 @@ class ImgNN(nn.Module):
         # self.visual_encoder = nn.Sequential(
         #     nn.Linear(input_dim, output_dim),   # 1024 512
         #     # nn.LayerNorm(mid_dim),
-        #     # nn.BatchNorm1d(mid_dim, affine=False,track_running_stats=False), #使移动均值和移动方差不起作用
+        #     # nn.BatchNorm1d(mid_dim, affine=False,track_running_stats=False), 
         #     # nn.BatchNorm1d(output_dim, affine=False),
         #     # nn.Dropout(0.5),
         #     nn.Linear(output_dim, output_dim)# 512 128
@@ -55,7 +55,7 @@ class AudioNN(nn.Module):
         # self.audio_encoder = nn.Sequential(
         #     nn.Linear(input_dim, input_dim),   # 128 128
         #     # nn.LayerNorm(output_dim),
-        #     # nn.BatchNorm1d(output_dim, affine=False,track_running_stats=False), #使移动均值和移动方差不起作用
+        #     # nn.BatchNorm1d(output_dim, affine=False,track_running_stats=False), 
         #     # nn.BatchNorm1d(input_dim, affine=False), 
         #     # nn.Dropout(0.5),
         #     nn.Linear(input_dim, output_dim)    # 128 128
