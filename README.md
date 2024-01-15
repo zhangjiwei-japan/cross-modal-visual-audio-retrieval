@@ -16,16 +16,16 @@ Python-3.6, Pytorch-0.3.0, Keras, ffmpeg.
 ## Feature Extraction
 ffmpeg:
 It is a tool to edit the video or audio, more detail seen: http://ffmpeg.org/. Here, I use the tool to extract audio track from video.
-## Testing:
 
+## Testing:
 DCLMA model in the paper: python test.py
 
 ## Training:
+DCLMA model in the paper: train.py
 
 ## Evelation: 
 we use MAP as metrics to evaluate our architecture, when the system generates a ranked list in one modality for a query in another modality. Those documents in the ranked list with the same class are regarded as relevant or correct.
 
-DCLMA model in the paper: train.py
 ## Contact
 If you have any questions, please email s210068@wakayama-u.ac.jp
 ## Other Related or Follow-up works
