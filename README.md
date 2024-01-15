@@ -1,17 +1,6 @@
 # visual-audio cross modal retrieval task
 
 Code for Paper: DCLMA: Deep Correlation Learning with Multi-modal Attention for Visual-Audio Retrieval.
-[[pdf]](https://dl.acm.org/doi/pdf/10.1145/3575658).
-If you find this project useful, please cite the offical paper.
-```
-@article{zhang2022variational,
-  title={Variational Autoencoder with CCA for Audio-Visual Cross-Modal Retrieval},
-  author={Zhang, Jiwei and Yu, Yi and Tang, Suhua and Wu, Jianming and Li, Wei},
-  journal={ACM Transactions on Multimedia Computing, Communications and Applications},
-  year={2022},
-  publisher={ACM New York, NY}
-}
-```
 
 ## Data
 Download routines for the datasets are not provided in the repository. Please download and prepare the datasets yourself according to our paper:
