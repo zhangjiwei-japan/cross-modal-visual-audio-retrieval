@@ -4,33 +4,27 @@ import copy
 import argparse
 import torch.nn as nn
 from loss_functions import *
-from center_loss import CenterLoss
+from contrastive_loss import *
 from evaluate import fx_calc_map_label
 import numpy as np
 import torch.optim as optim
 # from models.img_text_models import Cross_Modal_Net
-from models.basic_cross_models import CrossModal_NN
-from models.basic_model import IDCM_NN
-# from train_model import train_model
-from datasets.load_data import get_loader
+from cross_model_net_base import CrossModal_NN
+
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 parser = argparse.ArgumentParser(description='PyTorch Cross-Modality Training')
-parser.add_argument('--lr', default=0.001, type=float, help='learning rate, vegas 0.01 for ave 0.001')
-parser.add_argument('--batch_size', default=100, type=int, help='train batch size')
-parser.add_argument('--Center_lr', default=0.05, type=float, help='learning rate, vegas 0.5 ave 0.05')
-parser.add_argument('--optim', default='sgd', type=str, help='optimizer')
-parser.add_argument('--fig_attention_1', default= True, type=bool, help='fig_attention')
-parser.add_argument('--fig_attention_2', default= True, type=bool, help='fig_attention')
+parser.add_argument('--lr', default=1e-4, type=float, help='learning rate, vegas 0.01 for ave 0.001')
+parser.add_argument('--batch_size', default=128, type=int, help='train batch size')
+parser.add_argument('--dataset', default='vegas', help='dataset name: vegas or ave]')
+parser.add_argument('--optim', default='adam', type=str, help='optimizer')
 parser.add_argument('--dataset', default='pascal', help='dataset name: vegas or ave]')
-parser.add_argument('--l_id', default=1, type=float,help='loss paraerta')
-parser.add_argument('--l_center', default=0.01, type=float,help='loss paraerta')
-parser.add_argument('--l_dis', default=1, type=float,help='loss paraerta')
-parser.add_argument("--load_ave_data", type=str, default= "dataset/AVE_feature_updated_squence.h5" , help="data_path")
+parser.add_argument('--l_id', default=1, type=float,help='loss parameter')
+parser.add_argument('--l_corr', default=0.01, type=float,help='loss parameter')
 parser.add_argument("--load_vegas_data", type=str, default= "dataset/vegas_feature.h5" , help="data_path")
 args = parser.parse_args()
 
 print('...Data loading is beginning...')
-DATA_DIR = 'E:/Doctor-coder/cross-modal-dataset/' + args.dataset + '/'
+DATA_DIR = './cross-modal-dataset/' + args.dataset + '/'
 data_loader, input_data_par = get_loader(DATA_DIR, args.batch_size)
 net = CrossModal_NN(img_input_dim=input_data_par['img_dim'],text_input_dim=input_data_par['text_dim'],output_class_dim=input_data_par['num_class']).to(device)
 def adjust_learning_rate(optimizer, epoch,num_epoch):
@@ -51,162 +45,106 @@ def adjust_learning_rate(optimizer, epoch,num_epoch):
         optimizer.param_groups[i + 1]['lr'] = lr
 
     return lr
-if args.optim == 'sgd':
-    ignored_params =  list(map(id, net.visual_layer.parameters())) \
-                    + list(map(id, net.text_layer.parameters())) \
-                    + list(map(id, net.linearLayer.parameters())) \
-                    + list(map(id, net.classifier_t.parameters()))\
-                    + list(map(id, net.classifier_v.parameters()))
-    base_params = filter(lambda p: id(p) not in ignored_params, net.parameters())
-    optimizer = optim.SGD([
-        {'params': base_params, 'lr': 0.1 * args.lr},
-        {'params': net.visual_layer.parameters(), 'lr': args.lr},
-        {'params': net.text_layer.parameters(), 'lr': args.lr},
-        {'params': net.linearLayer.parameters(), 'lr': args.lr},
-        {'params': net.classifier_t.parameters(), 'lr': args.lr},
-        {'params': net.classifier_v.parameters(), 'lr': args.lr}
-        ],
-        weight_decay=5e-4, momentum=0.9, nesterov=True)
-    optmizercenter = optim.SGD(center_loss.parameters(), lr=args.Center_lr)  # 0.05 设置weight_decay=5e-3，即设置较大的L2正则来降低过拟合。
 
-def train_model(optimizer, alpha, beta, num_epochs=500):
+def train_model(Lr, beta, batch_size, test_size, num_epochs=500):
+    print("....train the model on vegas dataset....")
+    train_on_gpu = torch.cuda.is_available()
+    if not train_on_gpu:
+        print('CUDA is not available.  Training on CPU ...')
+    else:
+        print('CUDA is available!  Training on GPU ...')
+    # batch_size = 64
     best_acc = 0.0
-    since = time.time()
-    test_img_acc_history = []
-    test_txt_acc_history = []
-    epoch_loss_history =[]
-    center_loss = CenterLoss(20,64).to(device)
-    nllloss = nn.CrossEntropyLoss().to(device)
-    best_model_wts = copy.deepcopy(net.state_dict())
-    for epoch in range(num_epochs):
-        print('Epoch {}/{}'.format(epoch+1, num_epochs))
-        print('-' * 20)
-        current_lr = adjust_learning_rate(optimizer, epoch,num_epochs)
-        train_loss,train_center,train_nll,train_dis = 0,0,0,0
-        # Each epoch has a training and validation phase
-        for phase in ['train', 'test']:
-            if phase == 'train':
-                # Set model to training mode
-                net.train()
-            else:
-                # Set model to evaluate mode
-                net.eval()
-
-            running_loss = 0.0
-            running_corrects_img = 0
-            running_corrects_txt = 0
-            # Iterate over data.
-            for imgs, txts, labels in data_loader[phase]:
-                if torch.sum(imgs != imgs)>1 or torch.sum(txts != txts)>1:
-                    print("Data contains Nan.")
-
-                # zero the parameter gradients
-                optimizer.zero_grad()
-                optmizercenter.zero_grad()
-
-                # forward
-                # track history if only in train
-                with torch.set_grad_enabled(phase == 'train'):
-                    if torch.cuda.is_available():
-                        
-                        imgs = imgs.to(device)
-                        txts = txts.to(device)
-                        labels = labels.to(device)
-                        # print(imgs.shape,txts.shape)
-
-                    # zero the parameter gradients
-                    optimizer.zero_grad()
-                    optmizercenter.zero_grad()
-
-                    # Forward
-                    view1_feature, view2_feature, view1_predict, view2_predict = net(imgs, txts)
-                    # term1 = ((view1_predict-labels.float())**2).sum(1).sqrt().mean() + ((view2_predict-labels.float())**2).sum(1).sqrt().mean()
-                    labels_1 = torch.argmax(labels,dim=1).long()
-                    labels_2 = torch.argmax(labels,dim=1).long()
-                    loss_id = nllloss(view1_predict,labels_1) + nllloss(view2_predict,labels_2)
-                    loss_cent = center_loss(view1_feature,labels_1) + center_loss(view2_feature,labels_2)
-                    loss_dis = ((view1_feature - view2_feature)**2).sum(1).sqrt().mean()
-                    loss = loss_id + alpha * loss_cent + beta * loss_dis
-
-                    train_loss += loss.item()
-                    train_center += loss_cent.item()
-                    train_nll += loss_id.item()
-                    train_dis += loss_dis.item()
-
-                    # loss = calc_loss(view1_feature, view2_feature, view1_predict,
-                    #                  view2_predict, labels, labels, alpha, beta)
-
-                    img_preds = view1_predict
-                    txt_preds = view2_predict
-
-                    # backward + optimize only if in training phase
-                    if phase == 'train':
-                        loss.backward()
-                        optimizer.step()
-
-                # statistics
-                running_loss += loss.item()
-                running_corrects_img += torch.sum(torch.argmax(img_preds, dim=1) == torch.argmax(labels, dim=1))
-                running_corrects_txt += torch.sum(torch.argmax(txt_preds, dim=1) == torch.argmax(labels, dim=1))
-
-            print("Epoch:{}/{} Loss:{:.2f} Nll:{:.2f} Dis:{:.2f} Center:{:.2f} Lr:{:.6f}/{:.6f}".format(epoch,num_epochs, train_loss,
-                 train_nll,train_dis,train_center,current_lr,optmizercenter.param_groups[0]['lr']))
-            epoch_loss = running_loss / len(data_loader[phase].dataset)
-            # epoch_img_acc = running_corrects_img.double() / len(data_loaders[phase].dataset)
-            # epoch_txt_acc = running_corrects_txt.double() / len(data_loaders[phase].dataset)
-            t_imgs, t_txts, t_labels = [], [], []
-            with torch.no_grad():
-                for imgs, txts, labels in data_loader['test']:
-                    if torch.cuda.is_available():
-                            imgs = imgs.to(device)
-                            txts = txts.to(device)
-                            labels = labels.to(device)
-                    t_view1_feature, t_view2_feature, _, _ = net(imgs, txts)
-                    t_imgs.append(t_view1_feature.cpu().numpy())
-                    t_txts.append(t_view2_feature.cpu().numpy())
-                    t_labels.append(labels.cpu().numpy())
-            t_imgs = np.concatenate(t_imgs)
-            t_txts = np.concatenate(t_txts)
-            t_labels = np.concatenate(t_labels).argmax(1)
-            img2text = fx_calc_map_label(t_imgs, t_txts, t_labels)
-            txt2img = fx_calc_map_label(t_txts, t_imgs, t_labels)
-
-            print('{} Loss: {:.4f} Img2Txt: {:.4f}  Txt2Img: {:.4f}'.format(phase, epoch_loss, img2text, txt2img))
-
-            # deep copy the model
-            if phase == 'test' and (img2text + txt2img) / 2. > best_acc:
-                best_acc = (img2text + txt2img) / 2.
-                best_model_wts = copy.deepcopy(net.state_dict())
-                # if best_acc >0.69:
-                #     torch.save(net.state_dict(), 'save_models/text_image_{:.4f}_best.pth'.format(best_acc))
-            if phase == 'test':
-                test_img_acc_history.append(img2text)
-                test_txt_acc_history.append(txt2img)
-                epoch_loss_history.append(epoch_loss)
-
-    time_elapsed = time.time() - since
-    print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
-    print('Best average ACC: {:4f}'.format(best_acc))
-
-    # load best model weights
-    net.load_state_dict(best_model_wts)
-    return net,test_img_acc_history, test_txt_acc_history, epoch_loss_history
-
-def test_model():
-    print('...Evaluation on testing data...')
-    view1_feature, view2_feature, view1_predict, view2_predict = net(torch.tensor(input_data_par['img_test']).to(device), torch.tensor(input_data_par['text_test']).to(device))
-    label = torch.argmax(torch.tensor(input_data_par['label_test']), dim=1)
-    view1_feature = view1_feature.detach().cpu().numpy()
-    view2_feature = view2_feature.detach().cpu().numpy()
-    view1_predict = view1_predict.detach().cpu().numpy()
-    view2_predict = view2_predict.detach().cpu().numpy()
-    img_to_txt = fx_calc_map_label(view1_feature, view2_feature, label)
-    print('...Image to Text MAP = {}'.format(img_to_txt))
-
-    txt_to_img = fx_calc_map_label(view2_feature, view1_feature, label)
-    print('...Text to Image MAP = {}'.format(txt_to_img))
+    best_audio_2_img = 0.0
+    best_img_2_audio = 0.0
+    out_class_size = 10
+    visual_feat_dim = 1024
+    audio_fea_dim = 128
+    class_dim = 10
+    net = CrossModal_NN(img_input_dim=visual_feat_dim, img_output_dim=visual_feat_dim,
+                        audio_input_dim=audio_fea_dim, audio_output_dim=visual_feat_dim, minus_one_dim= mid_dim, output_dim=class_dim).to(device)
     
-    MAP = (img_to_txt + txt_to_img) / 2.
-    print('...Average MAP = {}'.format(MAP))
+    nllloss = nn.CrossEntropyLoss().to(device)
+    intramodal_loss = TotalIntraModalLoss(batch_size=batch_size)
+    intermodal_loss = TotalInterModalLoss(batch_size=batch_size)
+    best_model_wts = copy.deepcopy(net.state_dict())
+    params_to_update = list(net.parameters())
+    betas = (0.5, 0.999)
+    optimizer = optim.Adam(params_to_update, Lr, betas=betas)
+    data_loader_visual,data_loader_audio = load_dataset_train(load_path,batch_size)
+    for epoch in range(num_epochs):
+        net.train()
+        train_loss,train_inter,train_nll,train_intra,train_dis,train_center,train_contra = 0,0,0,0,0,0,0
+        for i, data in enumerate(zip(data_loader_visual, data_loader_audio)):
+            optimizer.zero_grad()
+            optmizercenter.zero_grad()
+            if torch.cuda.is_available():
+                inputs_visual = data[0][0].to(device)
+                labels_visual = data[0][1].to(device)
+                labels_visual = labels_visual.squeeze(1)
+                inputs_audio = data[1][0].to(device)
+                labels_audio = data[1][1].to(device)
+                labels_audio  = labels_audio.squeeze(1)
+            view1_feature, view2_feature, view1_predict, view2_predict,logit_scale = net(inputs_visual,inputs_audio)
+            loss_id = nllloss(view1_predict,labels_visual.long()) + nllloss(view2_predict,labels_audio.long())
+            loss_intra = intramodal_loss(view1_feature,view2_feature)
+            loss_inter = intermodal_loss(view1_feature,view2_feature)
+            loss = loss_id + beta * (loss_intra+ loss_inter)
 
-    return img_to_txt,txt_to_img,MAP
+            train_loss += loss.item()
+            train_inter += loss_inter.item()
+            train_intra += loss_intra.item()
+            train_nll += loss_id.item()
+
+            loss.backward()
+            optimizer.step()
+            optmizercenter.step()
+        print("Epoch:{}/{} Loss:{:.2f} Nll:{:.2f}  Inter:{:.2f} Intra:{:.2f}  Lr:{:.6f}/{:.6f}".format(epoch,num_epochs, train_loss,
+                 train_nll,train_inter,train_intra,optimizer.param_groups[0]['lr'],optmizercenter.param_groups[0]['lr']))
+        
+        if epoch > 0 and epoch%5==0:
+             img_to_txt,txt_to_img,MAP = eval_model(net,out_class_size, epoch, test_size)
+             if epoch > 50 and MAP > best_acc:
+                best_acc = MAP
+                best_audio_2_img = txt_to_img
+                best_img_2_audio = img_to_txt
+                print("Best Acc: {}".format(best_acc))
+    return round(best_img_2_audio,4),round(best_audio_2_img,4),round(best_acc,4)
+
+def eval_model(net, out_class_size, epoch, test_size):
+    local_time =  time.strftime("%Y-%m-%d-%H_%M_%S", time.localtime(time.time()))
+    net.eval()
+    t_imgs, t_txts, t_labels,p_img,p_txt = [], [], [], [], []
+    visual_test,audio_test = load_dataset_test(load_path,test_size)
+    with torch.no_grad():
+        for i, data in enumerate(zip(visual_test, audio_test)):
+            if torch.cuda.is_available():
+                    inputs_visual = data[0][0].to(device)
+                    labels_visual = data[0][1].to(device)
+                    labels_visual = labels_visual.squeeze(1)
+                    inputs_audio = data[1][0].to(device)
+                    labels_audio = data[1][1].to(device)
+            t_view1_feature, t_view2_feature, predict_view1, predict_view2,logit_scale= net(inputs_visual,inputs_audio)
+            labels_view1 = torch.argmax(predict_view1,dim=1).long()
+            labels_view2 = torch.argmax(predict_view2,dim=1).long()
+
+            t_imgs.append(t_view1_feature.cpu().detach().numpy())
+            t_txts.append(t_view2_feature.cpu().detach().numpy())
+            t_labels.append(labels_visual.cpu().detach().numpy())
+            p_img.append(labels_view1.cpu().detach().numpy())
+            p_txt.append(labels_view2.cpu().detach().numpy())
+
+    t_imgs = np.concatenate(t_imgs)
+    t_txts = np.concatenate(t_txts)
+    t_labels = np.concatenate(t_labels)
+    p_img =  np.concatenate(p_img)
+    p_txt =  np.concatenate(p_txt)
+    
+    img2audio = fx_calc_map_label(t_imgs, t_txts, t_labels)
+    print('...Image to audio MAP = {}'.format(img2audio))
+    txt2img = fx_calc_map_label(t_txts, t_imgs, t_labels)
+    print('...audio to Image MAP = {}'.format(txt2img))
+    Acc = (img2audio + txt2img) / 2.
+    print('...Average MAP = {}'.format(Acc))
+
+    return round(img2audio,4),round(txt2img,4),round(Acc,4)
