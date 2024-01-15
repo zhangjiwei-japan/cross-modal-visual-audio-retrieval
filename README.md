@@ -26,5 +26,5 @@ DCLMA model in the paper: python test.py
 DCLMA model in the paper: train.py
 ## Contact
 If you have any questions, please email s210068@wakayama-u.ac.jp
-## Reference
+## Other Related or Follow-up works
 Zhang, Jiwei, et al. "Variational Autoencoder with CCA for Audio-Visual Cross-Modal Retrieval." ACM Transactions on Multimedia Computing, Communications and Applications (2022).
