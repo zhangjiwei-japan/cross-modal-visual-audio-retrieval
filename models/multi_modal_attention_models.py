@@ -256,8 +256,7 @@ class Cross_modal_Attention(nn.Module):
         # atten_m = torch.add(feature_v,feature_a)
         C_g_v = F.sigmoid(torch.add(self.w_9(feature_v),self.w_10(feature_a)))*feature_a
         C_g_a = F.sigmoid(torch.add(self.w_11(feature_a),self.w_12(feature_v)))*feature_v
-        j_m = F.sigmoid(torch.add(C_g_v,C_g_a))
-        # j_m = F.sigmoid(self.joint_attention_map(C_g_v,C_g_a))
+        j_m = F.sigmoid(self.joint_attention_map(C_g_v,C_g_a))
         Z_g = (self.t_m*j_m)*img + (1-j_m)*audio
 
         return Z_g
