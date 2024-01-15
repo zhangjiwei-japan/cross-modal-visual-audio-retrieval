@@ -142,17 +142,4 @@ class TotalInterModalLoss(nn.Module):
         loss = self.hyper_lambda * intra_i_loss + (1-self.hyper_lambda) *intra_j_loss
         # print(intra_i_loss, intra_j_loss)
         return loss
-    
-if __name__ == '__main__':
-    # loss_func = ContrastiveLoss(batch_size=4)
-    # loss_func = SimilarityLoss(batch_size=4)
-    # loss_func = IntraModalLoss(batch_size=4)
-    loss_func = TotalIntraModalLoss(batch_size=8)
-    loss_func1 = TotalInterModalLoss(batch_size=8)
-    emb_i = torch.rand(8, 512).cuda()
-    emb_j = torch.rand(8, 512).cuda()
 
-    loss_contra = loss_func(emb_i,emb_j)
-    loss_contra1 = loss_func1(emb_i,emb_j)
-
-    print(loss_contra,loss_contra1)
