@@ -1,4 +1,4 @@
-# visual-audio-cross-modal-retrieval
+# visual-audio cross modal retrieval task
 
 Code for Paper: DCLMA: Deep Correlation Learning with Multi-modal Attention for Visual-Audio Retrieval.
 [[pdf]](https://dl.acm.org/doi/pdf/10.1145/3575658).
