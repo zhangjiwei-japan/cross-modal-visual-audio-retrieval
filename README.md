@@ -2,6 +2,16 @@
 
 Code for Paper: DCLMA: Deep Correlation Learning with Multi-modal Attention for Visual-Audio Retrieval.
 
+AVE Dataset & Features
+AVE dataset can be downloaded from https://drive.google.com/open?id=1FjKwe79e0u96vdjIVwfRQ1V6SoDHe7kK.
+Audio feature and visual feature (7.7GB) are also released. Please put videos of AVE dataset into /data/AVE folder and features into /data folder before running the code.
+Scripts for generating audio and visual features: https://drive.google.com/file/d/1TJL3cIpZsPHGVAdMgyr43u_vlsxcghKY/view?usp=sharing (Feel free to modify and use it to precess your audio and visual data).
+
+VEGAS Dataset & Features
+Requirements
+Python-3.6, Pytorch-0.3.0, Keras, ffmpeg.
+
+Visualize attention maps
 ## Data
 Download routines for the datasets are not provided in the repository. Please download and prepare the datasets yourself according to our paper:
 - [VEGAS Dataset](https://drive.google.com/file/d/1EjRDkgiXzAR8thouBVJrj7hQg2WBUZ88/view?usp=share_link)
