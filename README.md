@@ -11,13 +11,19 @@ Scripts for generating audio and visual features: https://drive.google.com/file/
 ## Requirements
 Python-3.6, Pytorch-0.3.0, Keras, ffmpeg.
 
-Visualize attention maps
 ## Data
 Download routines for the datasets are not provided in the repository. Please download and prepare the datasets yourself according to our paper:
 - [VEGAS Dataset](https://drive.google.com/file/d/1EjRDkgiXzAR8thouBVJrj7hQg2WBUZ88/view?usp=share_link)
 - [AVE Dataset](https://drive.google.com/file/d/1EjsbGoFZ2mCHNeVYmf45Kb4tNwTLV86o/view?usp=share_link)
 - Original Dataset homepage: https://sites.google.com/view/audiovisualresearch and https://github.com/YapengTian/AVE-ECCV18
 
+## Testing:
+
+DCLMA model in the paper: python test.py
+
+## Training:
+
+DCLMA model in the paper: train.py
 ## Contact
 If you have any questions, please email s210068@wakayama-u.ac.jp
 ## Reference
