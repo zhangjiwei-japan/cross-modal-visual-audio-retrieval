@@ -6,6 +6,7 @@ import torch.nn as nn
 from loss_functions import *
 from contrastive_loss import *
 from evaluate import fx_calc_map_label
+from datasets.load_data_vegas_ave import *
 import numpy as np
 import torch.optim as optim
 # from models.img_text_models import Cross_Modal_Net
@@ -15,18 +16,23 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 parser = argparse.ArgumentParser(description='PyTorch Cross-Modality Training')
 parser.add_argument('--lr', default=1e-4, type=float, help='learning rate, vegas 0.01 for ave 0.001')
 parser.add_argument('--batch_size', default=128, type=int, help='train batch size')
-parser.add_argument('--dataset', default='vegas', help='dataset name: vegas or ave]')
+parser.add_argument('--dataset', default='vegas', help='dataset name: vegas or ave')
 parser.add_argument('--optim', default='adam', type=str, help='optimizer')
-parser.add_argument('--dataset', default='pascal', help='dataset name: vegas or ave]')
 parser.add_argument('--l_id', default=1, type=float,help='loss parameter')
 parser.add_argument('--l_corr', default=0.01, type=float,help='loss parameter')
 parser.add_argument("--load_vegas_data", type=str, default= "dataset/vegas_feature.h5" , help="data_path")
 args = parser.parse_args()
 
 print('...Data loading is beginning...')
-DATA_DIR = './cross-modal-dataset/' + args.dataset + '/'
-data_loader, input_data_par = get_loader(DATA_DIR, args.batch_size)
-net = CrossModal_NN(img_input_dim=input_data_par['img_dim'],text_input_dim=input_data_par['text_dim'],output_class_dim=input_data_par['num_class']).to(device)
+base_dir = "./multi-level-attention-2023/datasets/"
+load_path =  base_dir +"vegas_feature.h5"
+out_class_size = 10
+visual_feat_dim = 1024
+word_vec_dim = 128
+mid_dim = 128
+class_dim = 10
+net = CrossModal_NN(img_input_dim=visual_feat_dim, img_output_dim=visual_feat_dim,
+                        audio_input_dim=word_vec_dim, audio_output_dim=visual_feat_dim, minus_one_dim= mid_dim, output_dim=class_dim).to(device)
 
 def test_model(net,save_path,test_size):
     local_time =  time.strftime("%Y-%m-%d-%H_%M_%S", time.localtime(time.time()))
@@ -66,3 +72,7 @@ def test_model(net,save_path,test_size):
     print('...Average MAP = {}'.format(Acc))
 
     return round(img2audio,4),round(txt2img,4),round(Acc,4)
+
+if __name__ == '__main__':
+    save_path = 'save_models/vegas-models/audio_image_best_vegas_revise_alignment.pth'
+    test_model(net,save_path,args.batch_size)
