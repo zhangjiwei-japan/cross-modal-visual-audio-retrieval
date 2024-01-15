@@ -2,26 +2,28 @@
 
 Code for Paper: DCLMA: Deep Correlation Learning with Multi-modal Attention for Visual-Audio Retrieval.
 
-## AVE Dataset & Features
+## AVE Dataset 
 AVE dataset can be downloaded from https://drive.google.com/open?id=1FjKwe79e0u96vdjIVwfRQ1V6SoDHe7kK.
 Audio feature and visual feature (7.7GB) are also released. Please put videos of AVE dataset into /data/AVE folder and features into /data folder before running the code.
 Scripts for generating audio and visual features: https://drive.google.com/file/d/1TJL3cIpZsPHGVAdMgyr43u_vlsxcghKY/view?usp=sharing (Feel free to modify and use it to precess your audio and visual data).
+- Original Dataset homepage: https://sites.google.com/view/audiovisualresearch and https://github.com/YapengTian/AVE-ECCV18
+## VEGAS Dataset 
+The Raw dataset from: https://arxiv.org/abs/1712.01393.
 
-## VEGAS Dataset & Features
 ## Requirements
 Python-3.6, Pytorch-0.3.0, Keras, ffmpeg.
 
-## Data
-Download routines for the datasets are not provided in the repository. Please download and prepare the datasets yourself according to our paper:
-- [VEGAS Dataset](https://drive.google.com/file/d/1EjRDkgiXzAR8thouBVJrj7hQg2WBUZ88/view?usp=share_link)
-- [AVE Dataset](https://drive.google.com/file/d/1EjsbGoFZ2mCHNeVYmf45Kb4tNwTLV86o/view?usp=share_link)
-- Original Dataset homepage: https://sites.google.com/view/audiovisualresearch and https://github.com/YapengTian/AVE-ECCV18
-
+## Feature Extraction
+ffmpeg:
+It is a tool to edit the video or audio, more detail seen: http://ffmpeg.org/. Here, I use the tool to extract audio track from video.
 ## Testing:
 
 DCLMA model in the paper: python test.py
 
 ## Training:
+
+#Evelation: 
+we use MAP as metrics to evaluate our architecture, when the system generates a ranked list in one modality for a query in another modality. Those documents in the ranked list with the same class are regarded as relevant or correct.
 
 DCLMA model in the paper: train.py
 ## Contact
