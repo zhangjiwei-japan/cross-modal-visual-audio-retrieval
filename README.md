@@ -21,7 +21,7 @@ It is a tool to edit the video or audio, more detail seen: http://ffmpeg.org/. H
 DCLMA model in the paper: python test.py
 
 ## Training:
-DCLMA model in the paper: train.py
+DCLMA model in the paper: python train.py
 
 ## Evelation: 
 we use MAP as metrics to evaluate our architecture, when the system generates a ranked list in one modality for a query in another modality. Those documents in the ranked list with the same class are regarded as relevant or correct.
