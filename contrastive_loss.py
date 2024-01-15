@@ -7,10 +7,10 @@ class ContrastiveLoss(nn.Module):
     def __init__(self, batch_size, device='cuda', temperature=0.5):
         super().__init__()
         self.batch_size = batch_size
-        self.register_buffer("temperature", torch.tensor(temperature).to(device))			# 超参数 温度
-        self.register_buffer("negatives_mask", (~torch.eye(batch_size * 2, batch_size * 2, dtype=bool).to(device)).float())		# 主对角线为0，其余位置全为1的mask矩阵
+        self.register_buffer("temperature", torch.tensor(temperature).to(device))			
+        self.register_buffer("negatives_mask", (~torch.eye(batch_size * 2, batch_size * 2, dtype=bool).to(device)).float())		
         
-    def forward(self, emb_i, emb_j):		# emb_i, emb_j 是来自同一图像的两种不同的预处理方法得到
+    def forward(self, emb_i, emb_j):		# emb_i, emb_j 
         z_i = F.normalize(emb_i, dim=1)     # (bs, dim)  --->  (bs, dim)
         z_j = F.normalize(emb_j, dim=1)     # (bs, dim)  --->  (bs, dim)
 
@@ -32,10 +32,10 @@ class SimilarityLoss(nn.Module):
     def __init__(self, batch_size, device='cuda', hyper_lambda=0.5):
         super().__init__()
         self.batch_size = batch_size
-        self.register_buffer("hyper_lambda", torch.tensor(hyper_lambda).to(device))			# 超参数 温度
-        self.register_buffer("negatives_mask", (~torch.eye(batch_size * 2, batch_size * 2, dtype=bool).to(device)).float())		# 主对角线为0，其余位置全为1的mask矩阵
+        self.register_buffer("hyper_lambda", torch.tensor(hyper_lambda).to(device))			
+        self.register_buffer("negatives_mask", (~torch.eye(batch_size * 2, batch_size * 2, dtype=bool).to(device)).float())		
         
-    def forward(self, emb_i, emb_j):		# emb_i, emb_j 是来自同一图像的两种不同的预处理方法得到
+    def forward(self, emb_i, emb_j):		# emb_i, emb_j 
         z_i = F.normalize(emb_i, dim=1)     # (bs, dim)  --->  (bs, dim)
         z_j = F.normalize(emb_j, dim=1)     # (bs, dim)  --->  (bs, dim)
 
@@ -63,11 +63,11 @@ class IntraModalLoss(nn.Module):
     def __init__(self, batch_size, device='cuda', temperature=0.2, hyper_gamma=0.5):
         super().__init__()
         self.batch_size = batch_size
-        self.register_buffer("temperature", torch.tensor(temperature).to(device))			# 超参数 温度
-        self.register_buffer("hyper_gamma", torch.tensor(hyper_gamma).to(device))			# 超参数
-        self.register_buffer("negatives_mask", (~torch.eye(batch_size, batch_size, dtype=bool).to(device)).float())		# 主对角线为0，其余位置全为1的mask矩阵
+        self.register_buffer("temperature", torch.tensor(temperature).to(device))			
+        self.register_buffer("hyper_gamma", torch.tensor(hyper_gamma).to(device))			 
+        self.register_buffer("negatives_mask", (~torch.eye(batch_size, batch_size, dtype=bool).to(device)).float())		
         
-    def forward(self, emb):		# emb_i, emb_j 是来自同一图像的两种不同的预处理方法得到
+    def forward(self, emb):		# emb_i, emb_j 
         z = F.normalize(emb, dim=1)     # (bs, dim)  --->  (bs, dim)
         # representations = torch.cat([z_i, z_j], dim=0)          # repre: (2*bs, dim)
         similarity_matrix = F.cosine_similarity(z.unsqueeze(1), z.unsqueeze(0), dim=2)      # simi_mat: (2*bs, 2*bs)
@@ -91,9 +91,9 @@ class TotalIntraModalLoss(nn.Module):
         self.batch_size = batch_size
         self.intra_modal_a = IntraModalLoss(self.batch_size)
         self.intra_modal_b = IntraModalLoss(self.batch_size)
-        self.register_buffer("hyper_lambda", torch.tensor(hyper_lambda).to(device))			# 超参数
+        self.register_buffer("hyper_lambda", torch.tensor(hyper_lambda).to(device))			
         
-    def forward(self, emb_i,emb_j):		# emb_i, emb_j 是来自同一图像的两种不同的预处理方法得到
+    def forward(self, emb_i,emb_j):		# emb_i, emb_j 
         intra_i_loss = self.intra_modal_a(emb_i)
         intra_j_loss = self.intra_modal_b(emb_j)
         loss = self.hyper_lambda * intra_i_loss + (1-self.hyper_lambda) *intra_j_loss
@@ -105,11 +105,11 @@ class InterModalLoss(nn.Module):
     def __init__(self, batch_size, device='cuda', temperature=0.2, hyper_gamma=0.5):
         super().__init__()
         self.batch_size = batch_size
-        self.register_buffer("temperature", torch.tensor(temperature).to(device))			# 超参数 温度
-        self.register_buffer("hyper_gamma", torch.tensor(hyper_gamma).to(device))			# 超参数
-        self.register_buffer("negatives_mask", (~torch.eye(batch_size, batch_size, dtype=bool).to(device)).float())		# 主对角线为0，其余位置全为1的mask矩阵
+        self.register_buffer("temperature", torch.tensor(temperature).to(device))			 
+        self.register_buffer("hyper_gamma", torch.tensor(hyper_gamma).to(device))			
+        self.register_buffer("negatives_mask", (~torch.eye(batch_size, batch_size, dtype=bool).to(device)).float())		
         
-    def forward(self, emb_i, emb_j):		# emb_i, emb_j 是来自同一图像的两种不同的预处理方法得到
+    def forward(self, emb_i, emb_j):		# emb_i, emb_j 
         z_i = F.normalize(emb_i, dim=1)     # (bs, dim)  --->  (bs, dim)
         z_j = F.normalize(emb_j, dim=1)     # (bs, dim)  --->  (bs, dim)
 
@@ -134,9 +134,9 @@ class TotalInterModalLoss(nn.Module):
         self.batch_size = batch_size
         self.inter_modal_a = InterModalLoss(self.batch_size)
         self.inter_modal_b = InterModalLoss(self.batch_size)
-        self.register_buffer("hyper_lambda", torch.tensor(hyper_lambda).to(device))			# 超参数
+        self.register_buffer("hyper_lambda", torch.tensor(hyper_lambda).to(device))		
         
-    def forward(self, emb_i,emb_j):		# emb_i, emb_j 是来自同一图像的两种不同的预处理方法得到
+    def forward(self, emb_i,emb_j):		# emb_i, emb_j 
         intra_i_loss = self.inter_modal_b (emb_i,emb_j)
         intra_j_loss = self.inter_modal_b (emb_j,emb_i)
         loss = self.hyper_lambda * intra_i_loss + (1-self.hyper_lambda) *intra_j_loss
