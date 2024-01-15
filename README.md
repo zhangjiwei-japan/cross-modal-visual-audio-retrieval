@@ -22,7 +22,7 @@ DCLMA model in the paper: python test.py
 
 ## Training:
 
-#Evelation: 
+## Evelation: 
 we use MAP as metrics to evaluate our architecture, when the system generates a ranked list in one modality for a query in another modality. Those documents in the ranked list with the same class are regarded as relevant or correct.
 
 DCLMA model in the paper: train.py
