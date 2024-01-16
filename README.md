@@ -3,7 +3,7 @@
 Code for Paper: DCLMA: Deep Correlation Learning with Multi-modal Attention for Visual-Audio Retrieval.
 # Installation
 ## 1. Clone the repository
-
+$ git clone https://github.com/hhachiya/set_rep_vector_and_asymmetric_attention.git
 ## 2.Requirements
 Python-3.6, Pytorch-0.3.0, Keras, ffmpeg.
 
@@ -25,9 +25,6 @@ It is a tool to edit the video or audio, more detail seen: http://ffmpeg.org/. H
 # Example
 ## Testing:
 DCLMA model in the paper: python test_model.py
-
-## Training:
-DCLMA model in the paper: python train_model.py
 
 ## Evelation: 
 we use MAP as metrics to evaluate our architecture, when the system generates a ranked list in one modality for a query in another modality. Those documents in the ranked list with the same class are regarded as relevant or correct.
