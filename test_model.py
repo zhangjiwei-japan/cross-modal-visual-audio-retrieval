@@ -21,7 +21,7 @@ parser.add_argument('--optim', default='adam', type=str, help='optimizer')
 parser.add_argument('--dataset', default='pascal', help='dataset name: vegas or ave]')
 parser.add_argument('--l_id', default=1, type=float,help='loss parameter')
 parser.add_argument('--l_corr', default=0.01, type=float,help='loss parameter')
-parser.add_argument("--load_vegas_data", type=str, default= "dataset/vegas_feature.h5" , help="data_path")
+parser.add_argument("--load_vegas_data", type=str, default= "vegas_feature.h5" , help="data_path")
 args = parser.parse_args()
 
 print('...Data loading is beginning...')
