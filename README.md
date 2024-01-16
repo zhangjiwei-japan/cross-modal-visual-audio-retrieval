@@ -32,6 +32,11 @@ The DCLMA model in the paper can be tested as follows:
 ```bash
 python test_model.py
 ```
+Model parameters：
+- `dataset`: which dataset "VEGAS" or "AVE".
+- `lr`: initial learning rate.
+- `batch_size`: train batch size.
+- `optim`: optimizer "ADAM" or "SGD".
 ## Evelation: 
 we use MAP as metrics to evaluate our architecture, when the system generates a ranked list in one modality for a query in another modality. Those documents in the ranked list with the same class are regarded as relevant or correct.
 |Datasets    | Audio2Visual| Visual2Audio  | mAP |
