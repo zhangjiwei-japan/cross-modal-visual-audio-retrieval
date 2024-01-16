@@ -27,7 +27,7 @@ args = parser.parse_args()
 print('...Data loading is beginning...')
 # load dataset path
 base_dir = "./datasets/"
-load_path =  base_dir +"vegas_feature.h5"
+load_path =  base_dir + args.load_vegas_data
 out_class_size = 10
 visual_feat_dim = 1024
 word_vec_dim = 128
