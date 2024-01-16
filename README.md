@@ -9,9 +9,9 @@ $ git clone https://github.com/zhangjiwei-japan/cross-modal-visual-audio-retriev
 ## 2.Requirements
 Python-3.6, Pytorch-0.3.0, Keras, ffmpeg.
 
-## 3. Download Dataset
+## 3. Prepare the datasets
 ### AVE Dataset 
-AVE dataset can be downloaded from https://drive.google.com/open?id=1FjKwe79e0u96vdjIVwfRQ1V6SoDHe7kK.
+- AVE dataset can be downloaded from https://drive.google.com/open?id=1FjKwe79e0u96vdjIVwfRQ1V6SoDHe7kK.
 Audio feature and visual feature (7.7GB) are also released. Scripts for generating audio and visual features: https://drive.google.com/file/d/1TJL3cIpZsPHGVAdMgyr43u_vlsxcghKY/view?usp=sharing
 - Original Dataset homepage: https://sites.google.com/view/audiovisualresearch and https://github.com/YapengTian/AVE-ECCV18
 
