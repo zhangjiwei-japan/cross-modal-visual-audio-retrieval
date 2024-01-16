@@ -103,13 +103,11 @@ def train_model(Lr, beta, batch_size, test_size, num_epochs):
         
         if epoch > 0 and epoch%5==0:
              img_to_txt,txt_to_img,MAP = eval_model(net, test_size)
-             if MAP > 0.89:
-            #  if epoch > 50 and MAP > best_acc:
+             if epoch > 50 and MAP > best_acc:
                 best_acc = MAP
                 best_audio_2_img = txt_to_img
                 best_img_2_audio = img_to_txt
                 print("Best Acc: {}".format(best_acc))
-                torch.save(net.state_dict(), 'save_models/vegas-models/audio_image_best_vegas_{}_revise_alignment.pth'.format(best_acc))
     return round(best_img_2_audio,4),round(best_audio_2_img,4),round(best_acc,4)
 
 def eval_model(model, test_size):
