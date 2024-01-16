@@ -23,7 +23,7 @@ Audio feature and visual feature (7.7GB) are also released. Scripts for generati
 python train_model.py
 ```
 Model parameters：
-- `dataset`: which dataset "VEGAS" or "AVE".
+- `load_path`: which dataset "VEGAS" or "AVE" path.
 - `lr`: initial learning rate.
 - `batch_size`: train batch size.
 - `optim`: optimizer "ADAM" or "SGD".
