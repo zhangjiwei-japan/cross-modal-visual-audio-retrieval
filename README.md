@@ -1,21 +1,25 @@
 # visual-audio cross modal retrieval task
 
 Code for Paper: DCLMA: Deep Correlation Learning with Multi-modal Attention for Visual-Audio Retrieval.
+# Installation
+## Clone the repository
 
-# 1. Dataset
+## Requirements
+Python-3.6, Pytorch-0.3.0, Keras, ffmpeg.
+
+## Download Dataset
+
 ### AVE Dataset 
 AVE dataset can be downloaded from https://drive.google.com/open?id=1FjKwe79e0u96vdjIVwfRQ1V6SoDHe7kK.
 Audio feature and visual feature (7.7GB) are also released. Scripts for generating audio and visual features: https://drive.google.com/file/d/1TJL3cIpZsPHGVAdMgyr43u_vlsxcghKY/view?usp=sharing
 - Original Dataset homepage: https://sites.google.com/view/audiovisualresearch and https://github.com/YapengTian/AVE-ECCV18
+
 ### VEGAS Dataset 
 The Raw dataset from: https://arxiv.org/abs/1712.01393.
 
-# 2. Feature Extraction
+## Feature Extraction
 ffmpeg:
 It is a tool to edit the video or audio, more detail seen: http://ffmpeg.org/. Here, I use the tool to extract audio track from video.
-
-# 3. Requirements
-Python-3.6, Pytorch-0.3.0, Keras, ffmpeg.
 
 ## Testing:
 DCLMA model in the paper: python test_model.py
