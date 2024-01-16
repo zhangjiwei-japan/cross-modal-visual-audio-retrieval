@@ -130,7 +130,7 @@ class CrossModal_NN(nn.Module):
         G_v_ = Z_2_g*torch.add(visual_global_feature,I_g_v)
         G_a_ = Z_2_g*torch.add(audio_global_feature,I_g_a)
         
-        # asymmetric attention module: global-level feature and fine-grained feature
+        # Asymmetic attention module: global-level feature and fine-grained feature
         S_v = self.asy_att(G_v_,F_visual_.view(batch_size, -1))
         S_a = self.asy_att(G_a_,F_audio_.view(batch_size, -1))
         # S_v = torch.cat((visual_global_feature,M_visual.view(batch_size, -1)),1)
