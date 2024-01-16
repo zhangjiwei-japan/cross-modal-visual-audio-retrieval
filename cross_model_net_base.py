@@ -149,30 +149,3 @@ class CrossModal_NN(nn.Module):
 
         return out_visual_feature, out_audio_feature, visual_predict, audio_predict,self.logit_scale.exp()
 
-
-if __name__ == '__main__':
-    x_A = torch.rand(32, 1024) 
-    x_B = torch.rand(32, 128) 
-    input = torch.rand(128,3,256)
-    input_g = torch.rand(128,1024)
-    fine_fea = torch.rand(128,768)
-    att_av = Multi_modal_Fusion_Attention(256,256)
-    CmJA = Multi_modal_Joint_Attention(256,256)
-    mm = Cross_modal_Attention(1024,1024)
-    asy_att = Asymmetic_Attention(1024,768)
-    out_gf = asy_att(input_g,fine_fea)
-    print(out_gf.shape)
-    out_jm = mm(input_g,input_g)
-    print(out_jm.shape)
-    out = att_av(input,input)
-    out2,out3 = CmJA(input,input,input)
-    print(out.shape,out2.shape)
-    net = CrossModal_NN(img_input_dim=1024, img_output_dim=1024,
-                 audio_input_dim=128, audio_output_dim=1024, minus_one_dim=128, output_dim=10)
-    # # net = cross_modal_base(input_dim=1024, mid_dim=512, out_dim=128, class_num = 10)
-    out_A,out_B,label_A,label_B,paremeter = net(x_A,x_B)
-    print(out_A.shape)
-    print(out_B.shape)
-    print(label_A.shape)
-    print(label_B.shape)
-    print(paremeter.shape,paremeter)
