@@ -25,7 +25,7 @@ args = parser.parse_args()
 
 print('...Data loading is beginning...')
 # load dataset path
-base_dir = "E:/Doctor-coder/multi-level-attention-2023/datasets/"
+base_dir = "./datasets/"
 load_path =  base_dir +"vegas_feature.h5"
 
 def adjust_learning_rate(optimizer, epoch,num_epoch):
