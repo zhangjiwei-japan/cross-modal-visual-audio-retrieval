@@ -2,13 +2,12 @@
 
 Code for Paper: DCLMA: Deep Correlation Learning with Multi-modal Attention for Visual-Audio Retrieval.
 # Installation
-## Clone the repository
+## 1. Clone the repository
 
-## Requirements
+## 2.Requirements
 Python-3.6, Pytorch-0.3.0, Keras, ffmpeg.
 
-## Download Dataset
-
+## 3. Download Dataset
 ### AVE Dataset 
 AVE dataset can be downloaded from https://drive.google.com/open?id=1FjKwe79e0u96vdjIVwfRQ1V6SoDHe7kK.
 Audio feature and visual feature (7.7GB) are also released. Scripts for generating audio and visual features: https://drive.google.com/file/d/1TJL3cIpZsPHGVAdMgyr43u_vlsxcghKY/view?usp=sharing
@@ -17,10 +16,13 @@ Audio feature and visual feature (7.7GB) are also released. Scripts for generati
 ### VEGAS Dataset 
 The Raw dataset from: https://arxiv.org/abs/1712.01393.
 
-## Feature Extraction
+## 4. Feature Extraction
 ffmpeg:
 It is a tool to edit the video or audio, more detail seen: http://ffmpeg.org/. Here, I use the tool to extract audio track from video.
 
+## 5. Execute run.py of each dataset to train and evaluate models as follows:
+
+# Example
 ## Testing:
 DCLMA model in the paper: python test_model.py
 
