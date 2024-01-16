@@ -3,7 +3,9 @@
 Code for Paper: DCLMA: Deep Correlation Learning with Multi-modal Attention for Visual-Audio Retrieval.
 # Installation
 ## 1. Clone the repository
-$ git clone https://github.com/hhachiya/set_rep_vector_and_asymmetric_attention.git
+```bash
+$ git clone https://github.com/zhangjiwei-japan/cross-modal-visual-audio-retrieval.git
+```
 ## 2.Requirements
 Python-3.6, Pytorch-0.3.0, Keras, ffmpeg.
 
