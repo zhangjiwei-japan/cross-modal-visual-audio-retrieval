@@ -25,6 +25,7 @@ parser.add_argument("--load_vegas_data", type=str, default= "dataset/vegas_featu
 args = parser.parse_args()
 
 print('...Data loading is beginning...')
+# load dataset path
 base_dir = "./datasets/"
 load_path =  base_dir +"vegas_feature.h5"
 out_class_size = 10
@@ -34,7 +35,6 @@ mid_dim = 128
 class_dim = 10
 net = CrossModal_NN(img_input_dim=visual_feat_dim, img_output_dim=visual_feat_dim,
                         audio_input_dim=word_vec_dim, audio_output_dim=visual_feat_dim, minus_one_dim= mid_dim, output_dim=class_dim).to(device)
-
 def test_model(net,save_path,test_size):
     local_time =  time.strftime("%Y-%m-%d-%H_%M_%S", time.localtime(time.time()))
     net.load_state_dict(torch.load(save_path))
