@@ -34,7 +34,10 @@ python test_model.py
 ```
 ## Evelation: 
 we use MAP as metrics to evaluate our architecture, when the system generates a ranked list in one modality for a query in another modality. Those documents in the ranked list with the same class are regarded as relevant or correct.
-
+|Datasets    | Audio2Visual| Visual2Audio  | mAP |
+| --------   | -----    | -----  |  -----  |
+|#AVE      | ~0.444  | ~0.455 | ~0.450| 
+|#VEGAS  | ~0.904 | ~ 0.903  | ~0.904 | 
 ## Contact
 If you have any questions, please email s210068@wakayama-u.ac.jp
 ## Other Related or Follow-up works
