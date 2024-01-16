@@ -20,13 +20,13 @@ parser.add_argument('--dataset', default='vegas', help='dataset name: vegas or a
 parser.add_argument('--optim', default='adam', type=str, help='optimizer')
 parser.add_argument('--l_id', default=1, type=float,help='loss parameter')
 parser.add_argument('--l_corr', default=0.01, type=float,help='loss parameter')
-parser.add_argument("--load_vegas_data", type=str, default= "dataset/vegas_feature.h5" , help="data_path")
+parser.add_argument("--load_vegas_data", type=str, default= "vegas_feature.h5" , help="data_path")
 args = parser.parse_args()
 
 print('...Data loading is beginning...')
 # load dataset path
 base_dir = "./datasets/"
-load_path =  base_dir +"vegas_feature.h5"
+load_path =  base_dir + args.load_vegas_data
 
 def adjust_learning_rate(optimizer, epoch,num_epoch):
     """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
