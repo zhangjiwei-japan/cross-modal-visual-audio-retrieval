@@ -33,7 +33,8 @@ The DCLMA model in the paper can be tested as follows:
 ```bash
 python test_model.py
 ```
-
+- `save_path`: trained model path
+- `test_size`: batch size of the test set
 ## Evelation: 
 we use mAP as metrics to evaluate our architecture, when the system generates a ranked list in one modality for a query in another modality. Those documents in the ranked list with the same class are regarded as relevant or correct.
 |Datasets    | Audio2Visual| Visual2Audio  | mAP |
