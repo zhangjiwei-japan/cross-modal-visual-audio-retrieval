@@ -18,11 +18,7 @@ Audio feature and visual feature (7.7GB) are also released. Scripts for generati
 ### (2) VEGAS Dataset 
 - The Raw dataset from: https://arxiv.org/abs/1712.01393.
 
-## 4. Feature Extraction
-ffmpeg:
-It is a tool to edit the video or audio, more detail seen: http://ffmpeg.org/. Here, I use the tool to extract audio track from video.
-
-## 5. Execute train_model.py to train and evaluate the model as follows::
+## 4. Execute train_model.py to train and evaluate the model as follows::
 ```bash
 python train_model.py
 ```
