@@ -5,6 +5,7 @@ import argparse
 import torch.nn as nn
 from loss_functions import *
 from contrastive_loss import *
+from datasets.load_data_vegas_ave import *
 from evaluate import fx_calc_map_label
 import numpy as np
 import torch.optim as optim
@@ -15,18 +16,18 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 parser = argparse.ArgumentParser(description='PyTorch Cross-Modality Training')
 parser.add_argument('--lr', default=1e-4, type=float, help='learning rate, vegas 0.01 for ave 0.001')
 parser.add_argument('--batch_size', default=128, type=int, help='train batch size')
-parser.add_argument('--dataset', default='vegas', help='dataset name: vegas or ave]')
+parser.add_argument('--dataset', default='vegas', help='dataset name: vegas or ave')
 parser.add_argument('--optim', default='adam', type=str, help='optimizer')
-parser.add_argument('--dataset', default='pascal', help='dataset name: vegas or ave]')
 parser.add_argument('--l_id', default=1, type=float,help='loss parameter')
 parser.add_argument('--l_corr', default=0.01, type=float,help='loss parameter')
 parser.add_argument("--load_vegas_data", type=str, default= "dataset/vegas_feature.h5" , help="data_path")
 args = parser.parse_args()
 
 print('...Data loading is beginning...')
-DATA_DIR = './cross-modal-dataset/' + args.dataset + '/'
-data_loader, input_data_par = get_loader(DATA_DIR, args.batch_size)
-net = CrossModal_NN(img_input_dim=input_data_par['img_dim'],text_input_dim=input_data_par['text_dim'],output_class_dim=input_data_par['num_class']).to(device)
+# load dataset path
+base_dir = "E:/Doctor-coder/multi-level-attention-2023/datasets/"
+load_path =  base_dir +"vegas_feature.h5"
+
 def adjust_learning_rate(optimizer, epoch,num_epoch):
     """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
     if epoch < 20: 
@@ -46,7 +47,7 @@ def adjust_learning_rate(optimizer, epoch,num_epoch):
 
     return lr
 
-def train_model(Lr, beta, batch_size, test_size, num_epochs=500):
+def train_model(Lr, beta, batch_size, test_size, num_epochs):
     print("....train the model on vegas dataset....")
     train_on_gpu = torch.cuda.is_available()
     if not train_on_gpu:
@@ -57,9 +58,9 @@ def train_model(Lr, beta, batch_size, test_size, num_epochs=500):
     best_acc = 0.0
     best_audio_2_img = 0.0
     best_img_2_audio = 0.0
-    out_class_size = 10
     visual_feat_dim = 1024
     audio_fea_dim = 128
+    mid_dim = 128
     class_dim = 10
     net = CrossModal_NN(img_input_dim=visual_feat_dim, img_output_dim=visual_feat_dim,
                         audio_input_dim=audio_fea_dim, audio_output_dim=visual_feat_dim, minus_one_dim= mid_dim, output_dim=class_dim).to(device)
@@ -77,7 +78,6 @@ def train_model(Lr, beta, batch_size, test_size, num_epochs=500):
         train_loss,train_inter,train_nll,train_intra,train_dis,train_center,train_contra = 0,0,0,0,0,0,0
         for i, data in enumerate(zip(data_loader_visual, data_loader_audio)):
             optimizer.zero_grad()
-            optmizercenter.zero_grad()
             if torch.cuda.is_available():
                 inputs_visual = data[0][0].to(device)
                 labels_visual = data[0][1].to(device)
@@ -98,22 +98,23 @@ def train_model(Lr, beta, batch_size, test_size, num_epochs=500):
 
             loss.backward()
             optimizer.step()
-            optmizercenter.step()
-        print("Epoch:{}/{} Loss:{:.2f} Nll:{:.2f}  Inter:{:.2f} Intra:{:.2f}  Lr:{:.6f}/{:.6f}".format(epoch,num_epochs, train_loss,
-                 train_nll,train_inter,train_intra,optimizer.param_groups[0]['lr'],optmizercenter.param_groups[0]['lr']))
+        print("Epoch:{}/{} Loss:{:.2f} Nll:{:.2f} Inter:{:.2f} Intra:{:.2f} Lr:{:.6f}".format(epoch,num_epochs, train_loss,
+                 train_nll,train_inter,train_intra,optimizer.param_groups[0]['lr']))
         
         if epoch > 0 and epoch%5==0:
-             img_to_txt,txt_to_img,MAP = eval_model(net,out_class_size, epoch, test_size)
-             if epoch > 50 and MAP > best_acc:
+             img_to_txt,txt_to_img,MAP = eval_model(net, test_size)
+             if MAP > 0.89:
+            #  if epoch > 50 and MAP > best_acc:
                 best_acc = MAP
                 best_audio_2_img = txt_to_img
                 best_img_2_audio = img_to_txt
                 print("Best Acc: {}".format(best_acc))
+                torch.save(net.state_dict(), 'save_models/vegas-models/audio_image_best_vegas_{}_revise_alignment.pth'.format(best_acc))
     return round(best_img_2_audio,4),round(best_audio_2_img,4),round(best_acc,4)
 
-def eval_model(net, out_class_size, epoch, test_size):
+def eval_model(model, test_size):
     local_time =  time.strftime("%Y-%m-%d-%H_%M_%S", time.localtime(time.time()))
-    net.eval()
+    model.eval()
     t_imgs, t_txts, t_labels,p_img,p_txt = [], [], [], [], []
     visual_test,audio_test = load_dataset_test(load_path,test_size)
     with torch.no_grad():
@@ -124,7 +125,7 @@ def eval_model(net, out_class_size, epoch, test_size):
                     labels_visual = labels_visual.squeeze(1)
                     inputs_audio = data[1][0].to(device)
                     labels_audio = data[1][1].to(device)
-            t_view1_feature, t_view2_feature, predict_view1, predict_view2,logit_scale= net(inputs_visual,inputs_audio)
+            t_view1_feature, t_view2_feature, predict_view1, predict_view2,logit_scale= model(inputs_visual,inputs_audio)
             labels_view1 = torch.argmax(predict_view1,dim=1).long()
             labels_view2 = torch.argmax(predict_view2,dim=1).long()
 
