@@ -26,7 +26,7 @@ It is a tool to edit the video or audio, more detail seen: http://ffmpeg.org/. H
 ```bash
 python train_model.py
 ```
-- Model parameters：
+Model parameters：
 - `dataset`: which dataset "VEGAS" or "AVE".
 - `lr`: initial learning rate.
 - `batch_size`: train batch size.
