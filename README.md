@@ -22,8 +22,10 @@ The Raw dataset from: https://arxiv.org/abs/1712.01393.
 ffmpeg:
 It is a tool to edit the video or audio, more detail seen: http://ffmpeg.org/. Here, I use the tool to extract audio track from video.
 
-## 5. Execute run.py of each dataset to train and evaluate models as follows:
-
+## 5. Execute train_model.py to train and evaluate the model as follows::
+```bash
+python train_model.py
+```
 # Example
 ## Testing:
 DCLMA model in the paper: python test_model.py
