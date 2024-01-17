@@ -28,6 +28,7 @@ Model parameters：
 - `batch_size`: train batch size.
 - `optim`: optimizer "ADAM" or "SGD".
 - `num_epochs`: set training epoch.
+- `beta`: hyper-parameters of cross-modal correlation loss.
 # Example
 ## Testing:
 The DCLMA model in the paper can be tested as follows:
