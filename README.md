@@ -27,6 +27,7 @@ Model parameters：
 - `lr`: initial learning rate.
 - `batch_size`: train batch size.
 - `optim`: optimizer "ADAM" or "SGD".
+- `num_epochs`: Set training epoch.
 # Example
 ## Testing:
 The DCLMA model in the paper can be tested as follows:
