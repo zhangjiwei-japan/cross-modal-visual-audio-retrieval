@@ -1,7 +1,0 @@
-名称	          类别数	图片数目	图文比例	提出年份  torch.Size
-Wikipedia	10	2866	          1：1	          2010      image shape ([64, 4096]) txts shape ([64, 5000])
-PKU XMedia	20	5000	          1：1	          2016
-NUS-WIDE	10	270000	1：1	          2009     image shape ([64, 4096])  txts shape ([64, 1000])
-Pascal VOC	20	9963	          1：1	          2007     image shape ([100, 4096]) txts shape ([100, 300])
-Flickr30k	无	31785	          1：5	          2014
-MS COCO	80	123287	1：5	          2014
