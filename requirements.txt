@@ -1,0 +1,16 @@
+conda==4.13.0
+conda-build==3.21.8
+keras==2.9.0
+Keras-Preprocessing==1.1.2
+Pillow==9.0.1
+pytorch-metric-learning==2.3.0
+scikit-learn-intelex==2021.20220215.102710
+tensorboardX==2.5.1
+tensorflow==2.9.1
+tensorflow-estimator==2.9.0
+tensorflow-io-gcs-filesystem==0.26.0
+torch==1.12.0
+torch-tb-profiler==0.4.0
+torchaudio==0.12.0
+torchstat==0.0.7
+torchvision==0.13.0
