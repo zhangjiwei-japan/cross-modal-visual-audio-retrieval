@@ -7,8 +7,9 @@ Code for Paper: DCLMA: Deep Correlation Learning with Multi-modal Attention for 
 $ git clone https://github.com/zhangjiwei-japan/cross-modal-visual-audio-retrieval.git
 ```
 ## 2.Requirements
-Python-3.6, Pytorch-0.3.0, Keras, ffmpeg.
-
+```bash
+conda install --file requirements.txt
+```
 ## 3. Prepare the datasets
 ### (1) AVE Dataset 
 - AVE dataset can be downloaded from https://drive.google.com/open?id=1FjKwe79e0u96vdjIVwfRQ1V6SoDHe7kK.
