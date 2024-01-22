@@ -27,7 +27,7 @@ args = parser.parse_args()
 print('...Data loading is beginning...')
 # load dataset path
 base_dir = "./datasets/"
-load_path =  base_dir + args.load_vegas_data
+load_path =  base_dir + args.load_vegas_data # 'Place your dataset path here'
 out_class_size = 10
 visual_feat_dim = 1024
 word_vec_dim = 128
@@ -73,3 +73,7 @@ def test_model(net,save_path,test_size):
     print('...Average MAP = {}'.format(Acc))
 
     return round(img2audio,4),round(txt2img,4),round(Acc,4)
+  
+if __name__ == '__main__':
+    save_path = 'Place your trained model path here'
+    test_model(net,save_path,args.batch_size)
