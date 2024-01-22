@@ -93,6 +93,6 @@ def eval():
                     print("image shape",imgs.shape)
                     print("txts shape",txts.shape)
 # 800 100 20 4,096 300
-if __name__ == '__main__':
-    # train()
-    eval()
+# if __name__ == '__main__':
+#     # train()
+#     eval()
