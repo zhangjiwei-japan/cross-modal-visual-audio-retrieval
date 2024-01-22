@@ -125,13 +125,3 @@ class Cross_Modal_Base_Net(nn.Module):
         return visual_feature_two,text_feature_two,visual_predict,text_predict
 
     
-if __name__ == '__main__':
-    x_A = torch.rand(32, 4096) 
-    x_B = torch.rand(32, 5000) 
-    # net = Cross_Modal_Net()
-    net = Cross_Modal_Base_Net()
-    out_A,out_B,label_A,label_B = net(x_A,x_B)
-    print(out_A.shape)
-    print(out_B.shape)
-    print(label_A.shape)
-    print(label_B.shape)
