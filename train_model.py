@@ -147,3 +147,11 @@ def eval_model(model, test_size):
     print('...Average MAP = {}'.format(Acc))
 
     return round(img2audio,4),round(txt2img,4),round(Acc,4)
+    
+if __name__ == '__main__':
+    num_epochs= 500
+    Lr = args.lr
+    beta = args.l_corr
+    batch_size = args.batch_size
+    test_size = args.batch_size
+    train_model(Lr, beta, batch_size, test_size, num_epochs)
