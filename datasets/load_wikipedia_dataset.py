@@ -91,6 +91,6 @@ def eval():
         # print("feature shape:",len(feats))
 
 # 2,173 462 10 4,096 300
-if __name__ == '__main__':
-    # train()
-    eval()
+# if __name__ == '__main__':
+#     # train()
+#     eval()
