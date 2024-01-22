@@ -1,6 +1,6 @@
 # visual-audio cross modal retrieval task
 
-Code for Paper: DCLMA: Deep Correlation Learning with Multi-modal Attention for Visual-Audio Retrieval.
+Code for Paper: DCLMA: Deep Correlation Learning with Multi-modal Attention for Visual-Audio Retrieval. Our code runs in the Windows 11 environment.
 # Installation
 ## 1. Clone the repository
 ```bash
