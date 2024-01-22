@@ -49,10 +49,3 @@ class AlexNet(nn.Module):
             elif isinstance(m, nn.Linear):
                 nn.init.normal_(m.weight, 0, 0.01)  #正态分布赋值
                 nn.init.constant_(m.bias, 0)
-
-
-if __name__ == '__main__':
-    input = torch.randn(64,1,224, 224)
-    net = AlexNet(num_classes=5, init_weights=True)
-    out = net(input)
-    print(out.shape)
