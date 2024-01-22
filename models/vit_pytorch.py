@@ -157,19 +157,19 @@ class VisionTransformer(nn.Module):
         x = self.to_latent(x)
         return self.mlp_head(x)
 
-if __name__ == '__main__':
-    vit = VisionTransformer(
-            image_size = 256,
-            patch_size = 16,
-            num_classes = 10,
-            embed_size = 256,
-            num_layers = 6,
-            heads = 8,
-            mlp_dim = 512,
-            dropout = 0.1,
-            emb_dropout = 0.1
-        )
-    img = torch.randn(3, 3, 256, 256)
-    pred = vit(img)
-    print(pred)
+# if __name__ == '__main__':
+#     vit = VisionTransformer(
+#             image_size = 256,
+#             patch_size = 16,
+#             num_classes = 10,
+#             embed_size = 256,
+#             num_layers = 6,
+#             heads = 8,
+#             mlp_dim = 512,
+#             dropout = 0.1,
+#             emb_dropout = 0.1
+#         )
+#     img = torch.randn(3, 3, 256, 256)
+#     pred = vit(img)
+#     print(pred)
 
