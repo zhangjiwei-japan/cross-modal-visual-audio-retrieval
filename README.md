@@ -23,6 +23,7 @@ Audio feature and visual feature (7.7GB) are also released. Scripts for generati
 ```bash
 python train_model.py
 ```
+Place the extracted data in the folder ./datasets 
 Model parameters：
 - `load_path`: which dataset "VEGAS" or "AVE" path.
 - `lr`: initial learning rate.
