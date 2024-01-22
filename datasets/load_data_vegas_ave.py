@@ -3,7 +3,6 @@ from torch.utils.data import Dataset,DataLoader,TensorDataset
 from torch.autograd import Variable
 from sklearn.preprocessing import MinMaxScaler
 import torchvision.transforms as transforms  
-from keras.utils import to_categorical
 import pandas as pd  
 import h5py
 import os  
