@@ -18,12 +18,11 @@ Audio feature and visual feature (7.7GB) are also released. Scripts for generati
 
 ### (2) VEGAS Dataset 
 - The Raw dataset from: https://arxiv.org/abs/1712.01393.
-
+Place the extracted data in the folder ./datasets 
 ## 4. Execute train_model.py to train and evaluate the model as follows:
 ```bash
 python train_model.py
 ```
-Place the extracted data in the folder ./datasets 
 Model parameters：
 - `load_path`: which dataset "VEGAS" or "AVE" path.
 - `lr`: initial learning rate.
