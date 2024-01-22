@@ -78,11 +78,3 @@ class IDCM_NN(nn.Module):
         view2_feature = self.linearLayer(view2_feature)
 
         return view1_feature, view2_feature
-
-if __name__ == '__main__':
-    
-    img = torch.randn(3, 4096)
-    text = torch.randn(3, 5000)
-    net = IDCM_NN(img_input_dim=4096, text_input_dim=5000)
-    view1_feature, view2_feature = net(img,text)
-    print(view1_feature.shape,view2_feature.shape)
