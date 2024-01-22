@@ -187,10 +187,3 @@ class Integration_Attention(nn.Module):
         return output_i,output_t
     
 
-if __name__ == '__main__':
-    x_A = torch.rand(32, 3, 256) 
-    x_B = torch.rand(32, 3, 256) 
-    net = Interaction_Attention(input_dim=256,dim_k=256)
-    att_A,att_B = net(x_A,x_B)
-    print('att_A is:', att_A.shape,att_B.shape)
-
