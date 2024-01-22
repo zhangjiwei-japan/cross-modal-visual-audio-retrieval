@@ -65,20 +65,4 @@ def load_dataset_test(load_path,test_size):
 
     return data_loader_visual,data_loader_audio
 
-if __name__ == "__main__":
-    base_dir = "E:/Doctor-coder/multi-level-attention-2023/datasets/"
-    # load_path =  base_dir +"vegas_feature.h5"
-    load_path =  base_dir +"AVE_feature_updated_squence.h5"
-    test_size = 128
-    train_size = 128
-    visual_test,audio_test = load_dataset_test(load_path,test_size)
-    data_loader_visual,data_loader_audio = load_dataset_train(load_path,train_size)
-    for epoch in range(2):
-        for i, data in enumerate(zip(data_loader_visual, data_loader_audio)):
-            inputs_visual = data[0][0].cuda()
-            labels_visual = data[0][1].cuda()
-            inputs_audio = data[1][0].cuda()
-            labels_audio = data[1][1].cuda()
-            
-            print("epoch", epoch, "的第" , i, "个inputs", inputs_visual.shape, "labels", labels_audio.shape)
 
