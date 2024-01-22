@@ -97,9 +97,9 @@ def eval():
         # print("Image feature shapes: ", len(feats))
 
 
-#8,000 1,000 10 4,096 300
-if __name__ == '__main__':
-    train()
+# #8,000 1,000 10 4,096 300
+# if __name__ == '__main__':
+#     train()
     # eval()
      
 
