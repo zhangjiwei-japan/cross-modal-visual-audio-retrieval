@@ -119,14 +119,3 @@ class CrossModal_NN(nn.Module):
         visual_predict = self.classifier_v(visual_feature)
         text_predict = self.classifier_t(text_feature)
         return visual_feature, text_feature, visual_predict, text_predict
-
-if __name__ == '__main__':
-    x_A = torch.rand(32, 4096) 
-    x_B = torch.rand(32, 1024) 
-    net = CrossModal_NN()
-    # net = cross_modal_base(input_dim=1024, mid_dim=512, out_dim=128, class_num = 10)
-    out_A,out_B,label_A,label_B = net(x_A,x_B)
-    print(out_A.shape)
-    print(out_B.shape)
-    print(label_A.shape)
-    print(label_B.shape)
