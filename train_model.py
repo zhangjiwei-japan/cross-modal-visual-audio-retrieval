@@ -26,7 +26,7 @@ args = parser.parse_args()
 print('...Data loading is beginning...')
 # load dataset path
 base_dir = "./datasets/"
-load_path =  base_dir + args.load_vegas_data
+load_path =  base_dir + args.load_vegas_data # Place your datset path here
 
 def adjust_learning_rate(optimizer, epoch,num_epoch):
     """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
