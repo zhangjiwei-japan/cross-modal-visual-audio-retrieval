@@ -66,7 +66,6 @@ class MultiScale_Modal_Net(nn.Module):
         x3 = self.conv7_3(x3)
         x3 = self.pool7_3(x3)
         
-        # 
         x1 = self.pool2(x1).permute(0,2,1)
         x2 = self.pool2(x2).permute(0,2,1)
         x3 = self.pool2(x3).permute(0,2,1)
@@ -81,19 +80,8 @@ class MultiScale_Modal_Net(nn.Module):
         # torch.Size([64, 256]) torch.Size([64, 256]) torch.Size([64, 256])
         # print(x1.shape,x2.shape,x3.shape) 
         feature = torch.cat((x1, x2, x3), dim=1)   
-    
-		# 
+  
         # feature_1 = self.fc1(feature)  # 256
         # feature_2 = self.fc2(feature_1)  # 2
         return feature
     
-if __name__ == '__main__':
-    x_A = torch.rand(32, 1024)
-    x_B = torch.rand(32, 1024) 
-    model_B = MultiScale_Modal_Net(num_features=1)
-    out_B =  model_B(x_B)
-    # net = CrossModal_NN()
-    # # net = cross_modal_base(input_dim=1024, mid_dim=512, out_dim=128, class_num = 10)
-    # out_A,out_B,label_A,label_B = net(x_A,x_B)
-    # print(out_A.shape)
-    print(out_B.shape)
