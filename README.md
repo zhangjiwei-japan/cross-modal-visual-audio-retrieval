@@ -8,7 +8,7 @@ $ git clone https://github.com/zhangjiwei-japan/cross-modal-visual-audio-retriev
 ```
 ## 2.Requirements
 ```bash
-conda create --name my_env python=3.9.1
+conda create --name my_env python=3.9.12
 conda activate my_env
 conda install --file requirements.txt
 ```
