@@ -24,7 +24,6 @@ conda install --file requirements.txt
 ```bash
 python train_model.py
 ```
-### Model parameters：
 - `load_path`: which dataset "VEGAS" or "AVE" path.
 - `lr`: initial learning rate.
 - `batch_size`: train batch size.
