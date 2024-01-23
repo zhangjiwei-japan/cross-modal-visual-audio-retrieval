@@ -18,7 +18,7 @@ conda install --file requirements.txt
 ### Please put the extracted data into the created file "datasets/ave/". 
 ### (2) VEGAS Dataset 
 - The Raw dataset from: https://arxiv.org/abs/1712.01393.
-### In addition, you can download the VEGAS dataset from this URL: https://drive.google.com/file/d/13o8wobSE6-4dXGHlfWpsrZ8o8eM9g8E0/view?usp=sharing
+### In addition, you can download the prepared [VEGAS] dataset. (https://drive.google.com/file/d/13o8wobSE6-4dXGHlfWpsrZ8o8eM9g8E0/view?usp=sharing)
 ### Please put the extracted data into the created file "datasets/vegas/". 
 ## 4. Execute train_model.py to train and evaluate the model as follows:
 ```bash
