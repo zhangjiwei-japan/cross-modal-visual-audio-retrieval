@@ -6,7 +6,7 @@ Code for Paper: DCLMA: Deep Correlation Learning with Multi-modal Attention for 
 ```bash
 $ git clone https://github.com/zhangjiwei-japan/cross-modal-visual-audio-retrieval.git
 ```
-## 2.Requirements
+## 2. Requirements
 #### （1） Install python from website ：https://www.python.org/downloads/windows/
 #### （2） Our program runs on the GPU. Please install the cuda, cudnn, etc as follows : 
 - CUDA Toolkit Archive ：https://developer.nvidia.com/cuda-toolkit-archive
@@ -21,8 +21,8 @@ pip install -r requirements.txt
 - AVE dataset can be downloaded from https://drive.google.com/open?id=1FjKwe79e0u96vdjIVwfRQ1V6SoDHe7kK.
 - Scripts for generating audio and visual features: https://drive.google.com/file/d/1TJL3cIpZsPHGVAdMgyr43u_vlsxcghKY/view?usp=sharing
 #### You can also download our prepared [AVE](https://drive.google.com/file/d/14Qdprd8_9cdih3QDN726kJTzaoo9Y8Y-/view?usp=sharing) dataset.
-- Please create ave file under the datasets file: `base_dir` = "./datasets/ave/"
-- Place the downloaded dataset in the ave file: `load_path` = `base_dir` + `Place your dataset path here`
+- Please create ave file under the datasets file : `base_dir` = "./datasets/ave/"
+- Place the downloaded dataset in the ave file : `load_path` = `base_dir` + `Place your dataset path here`
 ### (2) VEGAS Dataset 
 - The Raw dataset from: https://arxiv.org/abs/1712.01393.
 #### You can also download our prepared [VEGAS](https://drive.google.com/file/d/142VXU9-3P2HcaCWCQVlezRGJguGnHeHD/view?usp=sharing) dataset. 
