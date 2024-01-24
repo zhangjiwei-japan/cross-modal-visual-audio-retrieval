@@ -8,7 +8,7 @@ $ git clone https://github.com/zhangjiwei-japan/cross-modal-visual-audio-retriev
 ```
 ## 2.Requirements
 #### （1） Install python from website ：https://www.python.org/downloads/windows/
-#### （2） Our program runs on the GPU. Please install the cuda, cudnn, etc as follows: 
+#### （2） Our program runs on the GPU. Please install the cuda, cudnn, etc as follows : 
 - CUDA Toolkit Archive ：https://developer.nvidia.com/cuda-toolkit-archive
 - cuDNN Download | NVIDIA Developer ：https://developer.nvidia.com/login
 #### （3） Libraries required to install the program ：
