@@ -11,6 +11,7 @@ $ git clone https://github.com/zhangjiwei-japan/cross-modal-visual-audio-retriev
 #### （2） Our program runs on the GPU. Please install the cuda, cudnn, etc as follows : 
 - CUDA Toolkit Archive ：https://developer.nvidia.com/cuda-toolkit-archive
 - cuDNN Download | NVIDIA Developer ：https://developer.nvidia.com/login
+- PYTORCH : https://pytorch.org/
 #### （3） Libraries required to install the program ：
 ```bash
 pip install -r requirements.txt
