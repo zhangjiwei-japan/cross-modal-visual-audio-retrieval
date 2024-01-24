@@ -7,13 +7,11 @@ Code for Paper: DCLMA: Deep Correlation Learning with Multi-modal Attention for 
 $ git clone https://github.com/zhangjiwei-japan/cross-modal-visual-audio-retrieval.git
 ```
 ## 2.Requirements
-#### Our program runs on the GPU. Please install the corresponding cuda, cudnn, etc. according to the hardware.
-#### （1） Build your operating environment ：
-```bash
-conda create --name my_env python=3.9.12
-conda activate my_env
-```
-#### （2） Libraries required to install the program ：
+#### （1） Install python from website：https://www.python.org/downloads/windows/
+#### （2） Our program runs on the GPU. Please install the corresponding cuda, cudnn, etc. according to the hardware.
+- CUDA Toolkit Archive ：https://developer.nvidia.com/cuda-toolkit-archive
+- cuDNN Download | NVIDIA Developer ：https://developer.nvidia.com/login
+#### （3） Libraries required to install the program ：
 ```bash
 pip install -r requirements.txt
 ```
