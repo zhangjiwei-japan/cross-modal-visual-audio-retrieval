@@ -8,9 +8,13 @@ $ git clone https://github.com/zhangjiwei-japan/cross-modal-visual-audio-retriev
 ```
 ## 2.Requirements
 #### Our program runs on the GPU. Please install the corresponding cuda, cudnn, and pytorch according to the hardware.
+#### （1） Build your operating environment ：
 ```bash
 conda create --name my_env python=3.9.12
 conda activate my_env
+```
+#### （2） Libraries required to install the program ：
+```bash
 pip install -r requirements.txt
 ```
 ## 3. Prepare the datasets
