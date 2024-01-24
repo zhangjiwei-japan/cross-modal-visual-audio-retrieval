@@ -10,7 +10,7 @@ $ git clone https://github.com/zhangjiwei-japan/cross-modal-visual-audio-retriev
 ```bash
 conda create --name my_env python=3.9.12
 conda activate my_env
-conda install --file requirements.txt
+pip install -r requirements.txt
 ```
 ## 3. Prepare the datasets
 ### (1) AVE Dataset 
