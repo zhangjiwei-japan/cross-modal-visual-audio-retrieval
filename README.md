@@ -24,7 +24,7 @@ pip install -r requirements.txt
 #### Please create ave file under the datasets file and place the downloaded data set in the ave file： "datasets/ave/". 
 ### (2) VEGAS Dataset 
 - The Raw dataset from: https://arxiv.org/abs/1712.01393.
-#### In addition, you can download the prepared [VEGAS](https://drive.google.com/file/d/142VXU9-3P2HcaCWCQVlezRGJguGnHeHD/view?usp=sharing) dataset. 
+#### In addition, you can also download our prepared [VEGAS](https://drive.google.com/file/d/142VXU9-3P2HcaCWCQVlezRGJguGnHeHD/view?usp=sharing) dataset. 
 #### Please create veags file under the datasets file and place the downloaded data set in the vegas file: "datasets/vegas/". 
 ## 4. Execute train_model.py to train and evaluate the model as follows　(vegas dataset):
 ```bash
