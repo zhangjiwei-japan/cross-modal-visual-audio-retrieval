@@ -39,7 +39,7 @@ python train_model.py
 - `beta`: hyper-parameters of cross-modal correlation loss.
 # Example
 ## 1. Testing (vegas dataset) :
-The DCLMA model in the paper can be tested as follows:
+The DCLMA model in the paper can be tested as follows :
 ```bash
 python test_model.py
 ```
