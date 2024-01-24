@@ -22,11 +22,11 @@ pip install -r requirements.txt
 - AVE dataset can be downloaded from https://drive.google.com/open?id=1FjKwe79e0u96vdjIVwfRQ1V6SoDHe7kK.
 - Scripts for generating audio and visual features: https://drive.google.com/file/d/1TJL3cIpZsPHGVAdMgyr43u_vlsxcghKY/view?usp=sharing
 #### In addition, you can download the AVE original dataset from homepage: https://sites.google.com/view/audiovisualresearch and https://github.com/YapengTian/AVE-ECCV18
-#### Please put the extracted data into the created file "datasets/ave/". 
+#### Please create ave file under the datasets file and place the downloaded data set in the ave file： "datasets/ave/". 
 ### (2) VEGAS Dataset 
 - The Raw dataset from: https://arxiv.org/abs/1712.01393.
 #### In addition, you can download the prepared [VEGAS](https://drive.google.com/file/d/142VXU9-3P2HcaCWCQVlezRGJguGnHeHD/view?usp=sharing) dataset. 
-#### Please put the extracted data into the created file "datasets/vegas/". 
+#### Please create veags file under the datasets file and place the downloaded data set in the vegas file: "datasets/vegas/". 
 ## 4. Execute train_model.py to train and evaluate the model as follows:
 ```bash
 python train_model.py
