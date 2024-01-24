@@ -31,10 +31,8 @@ pip install -r requirements.txt
 ```bash
 python train_model.py
 ```
-- `load_path`: which dataset "VEGAS" or "AVE" path.
 - `lr`: initial learning rate.
 - `batch_size`: train batch size.
-- `optim`: optimizer "ADAM" or "SGD".
 - `num_epochs`: set training epoch.
 - `beta`: hyper-parameters of cross-modal correlation loss.
 # Example
