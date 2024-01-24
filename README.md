@@ -26,7 +26,7 @@ pip install -r requirements.txt
 - The Raw dataset from: https://arxiv.org/abs/1712.01393.
 #### In addition, you can download the prepared [VEGAS](https://drive.google.com/file/d/142VXU9-3P2HcaCWCQVlezRGJguGnHeHD/view?usp=sharing) dataset. 
 #### Please create veags file under the datasets file and place the downloaded data set in the vegas file: "datasets/vegas/". 
-## 4. Execute train_model.py to train and evaluate the model as follows:
+## 4. Execute train_model.py to train and evaluate the model as follows　(vegas dataset):
 ```bash
 python train_model.py
 ```
@@ -35,7 +35,7 @@ python train_model.py
 - `num_epochs`: set training epoch.
 - `beta`: hyper-parameters of cross-modal correlation loss.
 # Example
-## 1. Testing:
+## 1. Testing (vegas dataset):
 The DCLMA model in the paper can be tested as follows:
 ```bash
 python test_model.py
