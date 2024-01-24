@@ -27,7 +27,7 @@ pip install -r requirements.txt
 #### In addition, you can also download our prepared [VEGAS](https://drive.google.com/file/d/142VXU9-3P2HcaCWCQVlezRGJguGnHeHD/view?usp=sharing) dataset. 
 - Please create veags file under the datasets file: "datasets/vegas/"
 - Place the downloaded dataset in the vegas file. 
-## 4. Execute train_model.py to train and evaluate the model as follows　(vegas dataset):
+## 4. Execute train_model.py to train and evaluate the model as follows　(vegas dataset) :
 ```bash
 python train_model.py
 ```
@@ -37,7 +37,7 @@ python train_model.py
 - `class_dim`: vegas dataset class_dim = 10, ave dataset class_dim = 15. 
 - `beta`: hyper-parameters of cross-modal correlation loss.
 # Example
-## 1. Testing (vegas dataset):
+## 1. Testing (vegas dataset) :
 The DCLMA model in the paper can be tested as follows:
 ```bash
 python test_model.py
@@ -45,7 +45,7 @@ python test_model.py
 - `save_path`: trained model path
 - `test_size`: batch size of the test set
 - `class_dim`: vegas dataset class_dim = 10, ave dataset class_dim = 15. 
-## 2. Evelation: 
+## 2. Evelation : 
 we use mAP as metrics to evaluate our architecture, when the system generates a ranked list in one modality for a query in another modality. Those documents in the ranked list with the same class are regarded as relevant or correct.
 |Datasets    | Audio2Visual| Visual2Audio  | mAP |
 | --------   | -----    | -----  |  -----  |
