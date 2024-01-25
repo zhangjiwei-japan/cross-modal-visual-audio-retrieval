@@ -32,6 +32,7 @@ pip install -r requirements.txt
 ```bash
 python train_model.py
 ```
+#### Parameters that need to be modified when running the code: 
 - `lr`: initial learning rate.
 - `batch_size`: train batch size.
 - `num_epochs`: set training epoch.
@@ -43,7 +44,7 @@ The DCLMA model in the paper can be tested as follows :
 ```bash
 python test_model.py
 ```
-#### Parameters that need to be modified when running the code
+#### Parameters that need to be modified when running the code:
 - `save_path`: trained model path.
 - `test_size`: batch size of the test set.
 - `class_dim`: vegas dataset class_dim = 10, ave dataset class_dim = 15. 
