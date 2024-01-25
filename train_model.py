@@ -16,6 +16,7 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 parser = argparse.ArgumentParser(description='PyTorch Cross-Modality Training')
 parser.add_argument('--lr', default=1e-4, type=float, help='learning rate, vegas 0.01 for ave 0.001')
 parser.add_argument('--batch_size', default=128, type=int, help='train batch size')
+parser.add_argument('--dataset', default='vegas', help='dataset name: vegas or ave')
 parser.add_argument('--l_id', default=1, type=float,help='loss parameter')
 parser.add_argument('--l_corr', default=0.1, type=float,help='loss parameter')
 parser.add_argument("--load_vegas_data", type=str, default= "vegas_feature_norm.h5" , help="data_path")
@@ -85,7 +86,7 @@ def train_model(Lr, beta, batch_size, test_size, num_epochs):
                 best_audio_2_img = txt_to_img
                 best_img_2_audio = img_to_txt
                 print("Best Acc: {}".format(best_acc))
-                torch.save(net.state_dict(), './audio_image_best_vegas_best.pth')
+                torch.save(net.state_dict(), './audio_image_best_{}_best.pth'.format(args.dataset))
              early_stopping(eval_loss, net)
              if early_stopping.early_stop:
                 print("Early stopping")
