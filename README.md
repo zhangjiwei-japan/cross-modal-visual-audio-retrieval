@@ -34,6 +34,7 @@ python train_model.py
 ```
 #### Only the following parameters need to be modified when running train_model.py : 
 - `lr`: initial learning rate.
+- `num_epochs`: train epoch= 120.
 - `batch_size`: train batch size.
 - `dataset`: dataset name "vegas or ave".
 - `num_epochs`: set training epoch.
