@@ -13,12 +13,7 @@ from cross_model_net_base import CrossModal_NN
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 parser = argparse.ArgumentParser(description='PyTorch Cross-Modality Training')
-parser.add_argument('--lr', default=1e-4, type=float, help='learning rate, vegas 0.01 for ave 0.001')
 parser.add_argument('--batch_size', default=128, type=int, help='train batch size')
-parser.add_argument('--dataset', default='vegas', help='dataset name: vegas or ave')
-parser.add_argument('--optim', default='adam', type=str, help='optimizer')
-parser.add_argument('--l_id', default=1, type=float,help='loss parameter')
-parser.add_argument('--l_corr', default=0.01, type=float,help='loss parameter')
 parser.add_argument("--load_vegas_data", type=str, default= "vegas_feature_norm.h5" , help="data_path")
 args = parser.parse_args()
 
@@ -26,7 +21,6 @@ print('...Data loading is beginning...')
 # load dataset path
 base_dir = "./datasets/vegas/"
 load_path =  base_dir + args.load_vegas_data # Place your datset path here
-out_class_size = 10
 visual_feat_dim = 1024
 word_vec_dim = 128
 mid_dim = 128
