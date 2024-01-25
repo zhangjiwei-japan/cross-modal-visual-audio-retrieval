@@ -19,13 +19,13 @@ parser.add_argument('--batch_size', default=128, type=int, help='train batch siz
 parser.add_argument('--dataset', default='vegas', help='dataset name: vegas or ave')
 parser.add_argument('--l_id', default=1, type=float,help='loss parameter')
 parser.add_argument('--l_corr', default=0.1, type=float,help='loss parameter')
-parser.add_argument("--load_vegas_data", type=str, default= "vegas_feature_norm.h5" , help="data_path")
+parser.add_argument("--load_data", type=str, default= "vegas_feature_norm.h5" , help="data_path")
 args = parser.parse_args()
 
 print('...Data loading is beginning...')
 # load dataset path
 base_dir = "./datasets/vegas/"
-load_path =  base_dir + args.load_vegas_data # Place your datset path here
+load_path =  base_dir + args.load_data # Place your datset path here
 early_stopping = EarlyStopping()
 def train_model(Lr, beta, batch_size, test_size, num_epochs):
     print("....train the model on vegas dataset....")
