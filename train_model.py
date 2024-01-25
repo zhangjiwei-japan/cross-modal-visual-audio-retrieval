@@ -107,6 +107,7 @@ def train_model(Lr, beta, batch_size, test_size, num_epochs):
                 best_audio_2_img = txt_to_img
                 best_img_2_audio = img_to_txt
                 print("Best Acc: {}".format(best_acc))
+                torch.save(net.state_dict(), './audio_image_best_ave_{}_best.pth'.format(best_acc))
     return round(best_img_2_audio,4),round(best_audio_2_img,4),round(best_acc,4)
 
 def eval_model(model, test_size):
