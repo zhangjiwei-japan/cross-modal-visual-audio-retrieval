@@ -53,7 +53,7 @@ python test_model.py
 we use mAP as metrics to evaluate our architecture, when the system generates a ranked list in one modality for a query in another modality. Those documents in the ranked list with the same class are regarded as relevant or correct.
 |Datasets    | Audio2Visual| Visual2Audio  | mAP |
 | --------   | -----    | -----  |  -----  |
-|#AVE      | ~0.507  | ~0.508 | ~0.507| 
+|#AVE      | ~0.507  | ~0.508 | ~0.508| 
 |#VEGAS  | ~0.933 | ~ 0.931  | ~0.932 | 
 ## Contact
 If you have any questions, please email s210068@wakayama-u.ac.jp
