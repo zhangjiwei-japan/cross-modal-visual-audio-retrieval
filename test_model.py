@@ -67,5 +67,6 @@ def test_model(net,save_path,test_size):
     return round(img2audio,4),round(txt2img,4),round(Acc,4)
   
 if __name__ == '__main__':
+    # load trained model path
     save_path = 'Place your trained model path here'
     test_model(net,save_path,args.batch_size)
