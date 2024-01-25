@@ -35,6 +35,7 @@ python train_model.py
 #### Parameters that need to be modified when running the train_model.py : 
 - `lr`: initial learning rate.
 - `batch_size`: train batch size.
+- `dataset`: dataset name: vegas or ave.
 - `num_epochs`: set training epoch.
 - `class_dim`: vegas dataset class_dim = 10, ave dataset class_dim = 15. 
 - `beta`: hyper-parameters of cross-modal correlation loss.
