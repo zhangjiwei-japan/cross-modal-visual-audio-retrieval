@@ -32,7 +32,7 @@ pip install -r requirements.txt
 ```bash
 python train_model.py
 ```
-#### nly the following parameters need to be modified when running train_model.py : 
+#### Only the following parameters need to be modified when running train_model.py : 
 - `lr`: initial learning rate.
 - `batch_size`: train batch size.
 - `dataset`: dataset name "vegas or ave".
