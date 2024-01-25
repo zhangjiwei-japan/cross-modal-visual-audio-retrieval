@@ -46,7 +46,6 @@ def train_model(Lr, beta, batch_size, test_size, num_epochs):
     nllloss = nn.CrossEntropyLoss().to(device)
     intramodal_loss = TotalIntraModalLoss(batch_size=batch_size)
     intermodal_loss = TotalInterModalLoss(batch_size=batch_size)
-    best_model_wts = copy.deepcopy(net.state_dict())
     params_to_update = list(net.parameters())
     betas = (0.5, 0.999)
     optimizer = optim.Adam(params_to_update, Lr, betas=betas)
