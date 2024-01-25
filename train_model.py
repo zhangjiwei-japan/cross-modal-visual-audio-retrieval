@@ -35,7 +35,7 @@ def train_model(Lr, beta, batch_size, test_size, num_epochs):
     else:
         print('CUDA is available!  Training on GPU ...')
     # batch_size = 64
-    best_acc = 0.90
+    best_acc = 0.0
     best_audio_2_img = 0.0
     best_img_2_audio = 0.0
     visual_feat_dim = 1024
@@ -86,7 +86,7 @@ def train_model(Lr, beta, batch_size, test_size, num_epochs):
                 best_audio_2_img = txt_to_img
                 best_img_2_audio = img_to_txt
                 print("Best Acc: {}".format(best_acc))
-                torch.save(net.state_dict(), './audio_image_best_{}_best.pth'.format(args.dataset))
+                torch.save(net.state_dict(), './audio_image_best_{}.pth'.format(args.dataset))
              early_stopping(eval_loss, net)
              if early_stopping.early_stop:
                 print("Early stopping")
