@@ -142,7 +142,7 @@ def eval_model(model, test_size):
     return round(img2audio,4),round(txt2img,4),round(Acc,4), eval_loss
     
 if __name__ == '__main__':
-    num_epochs= 120
+    num_epochs= 150
     Lr = args.lr
     beta = args.l_corr
     batch_size = args.batch_size
