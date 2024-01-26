@@ -14,7 +14,7 @@ from cross_model_net_base import CrossModal_NN
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 parser = argparse.ArgumentParser(description='PyTorch Cross-Modality Training')
 parser.add_argument('--batch_size', default=128, type=int, help='train batch size')
-parser.add_argument('--dataset', default='vegas', type=int, help='data name')
+parser.add_argument('--dataset', default='vegas', help='dataset name: vegas or ave')
 parser.add_argument("--load_vegas_data", type=str, default= "vegas_feature_norm.h5" , help="data_path")
 parser.add_argument("--load_ave_data", type=str, default= "ave_feature_norm.h5" , help="data_path")
 args = parser.parse_args()
