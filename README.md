@@ -47,6 +47,7 @@ python test_model.py
 ```
 #### Only the following parameters need to be modified when running test_model.py :
 - `save_path`: load trained model path.
+- `dataset`: dataset name "vegas or ave".
 - `test_size`: batch size of the test set.
 - `class_dim`: vegas dataset class_dim = 10, ave dataset class_dim = 15. 
 ## 2. Evelation : 
