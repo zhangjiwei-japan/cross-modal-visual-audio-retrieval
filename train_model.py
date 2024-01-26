@@ -20,16 +20,23 @@ parser.add_argument('--batch_size', default=128, type=int, help='train batch siz
 parser.add_argument('--dataset', default='vegas', help='dataset name: vegas or ave')
 parser.add_argument('--l_id', default=1, type=float,help='loss parameter')
 parser.add_argument('--l_corr', default=0.1, type=float,help='loss parameter')
-parser.add_argument("--load_data", type=str, default= "vegas_feature_norm.h5" , help="data_path")
+parser.add_argument("--load_vegas_data", type=str, default= "vegas_feature_norm.h5" , help="data_path")
+parser.add_argument("--load_ave_data", type=str, default= "ave_feature_norm.h5" , help="data_path")
 args = parser.parse_args()
 
 print('...Data loading is beginning...')
 # load dataset path
-base_dir = "./datasets/vegas/"
-load_path =  base_dir + args.load_data # Place your datset path here
+if args.dataset == 'vegas':
+    base_dir = "./datasets/vegas/"
+    class_dim = 10
+    load_path =  base_dir + args.load_vegas_data # Place your vegas datset path here "vegas_feature_norm.h5"
+elif args.dataset == 'ave': 
+    base_dir = "./datasets/ave/"
+    class_dim = 15
+    load_path =  base_dir + args.load_ave_data # Place your ave datset path here "ave_feature_norm.h5"
 early_stopping = EarlyStopping()
 def train_model(Lr, beta, batch_size, test_size, num_epochs):
-    print("....train the model on vegas dataset....")
+    print("....train the model on {} dataset....".format(args.dataset))
     train_on_gpu = torch.cuda.is_available()
     if not train_on_gpu:
         print('CUDA is not available.  Training on CPU ...')
@@ -42,7 +49,6 @@ def train_model(Lr, beta, batch_size, test_size, num_epochs):
     visual_feat_dim = 1024
     audio_fea_dim = 128
     mid_dim = 128
-    class_dim = 10
     net = CrossModal_NN(img_input_dim=visual_feat_dim, img_output_dim=visual_feat_dim,
                         audio_input_dim=audio_fea_dim, audio_output_dim=visual_feat_dim, minus_one_dim= mid_dim, output_dim=class_dim).to(device)
     nllloss = nn.CrossEntropyLoss().to(device)
