@@ -14,17 +14,22 @@ from cross_model_net_base import CrossModal_NN
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 parser = argparse.ArgumentParser(description='PyTorch Cross-Modality Training')
 parser.add_argument('--batch_size', default=128, type=int, help='train batch size')
-parser.add_argument("--load_data", type=str, default= "vegas_feature_norm.h5" , help="data_path")
+parser.add_argument('--dataset', default='vegas', type=int, help='data name')
+parser.add_argument("--load_vegas_data", type=str, default= "vegas_feature_norm.h5" , help="data_path")
+parser.add_argument("--load_ave_data", type=str, default= "ave_feature_norm.h5" , help="data_path")
 args = parser.parse_args()
-
+if args.dataset == 'vegas':
+    base_dir = "./datasets/vegas/"
+    class_dim = 10
+    load_path =  base_dir + args.load_vegas_data # Place your vegas datset path here "vegas_feature_norm.h5"
+elif args.dataset == 'ave': 
+    base_dir = "./datasets/ave/"
+    class_dim = 15
+    load_path =  base_dir + args.load_ave_data # Place your ave datset path here "ave_feature_norm.h5" 
 print('...Data loading is beginning...')
-# load dataset path
-base_dir = "./datasets/vegas/"
-load_path =  base_dir + args.load_data # Place your datset path here
 visual_feat_dim = 1024
 word_vec_dim = 128
 mid_dim = 128
-class_dim = 10
 net = CrossModal_NN(img_input_dim=visual_feat_dim, img_output_dim=visual_feat_dim,
                         audio_input_dim=word_vec_dim, audio_output_dim=visual_feat_dim, minus_one_dim= mid_dim, output_dim=class_dim).to(device)
 def test_model(net,save_path,test_size):
