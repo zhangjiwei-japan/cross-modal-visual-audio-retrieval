@@ -15,6 +15,7 @@ from cross_model_net_base import CrossModal_NN
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 parser = argparse.ArgumentParser(description='PyTorch Cross-Modality Training')
 parser.add_argument('--lr', default=1e-4, type=float, help='learning rate, vegas 0.01 for ave 0.001')
+parser.add_argument('--epochs', default=120, type=int, help='train epoch')
 parser.add_argument('--batch_size', default=128, type=int, help='train batch size')
 parser.add_argument('--dataset', default='vegas', help='dataset name: vegas or ave')
 parser.add_argument('--l_id', default=1, type=float,help='loss parameter')
@@ -142,7 +143,7 @@ def eval_model(model, test_size):
     return round(img2audio,4),round(txt2img,4),round(Acc,4), eval_loss
     
 if __name__ == '__main__':
-    num_epochs= 120
+    num_epochs= args.epochs
     Lr = args.lr
     beta = args.l_corr
     batch_size = args.batch_size
