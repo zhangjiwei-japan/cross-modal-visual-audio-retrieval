@@ -73,5 +73,5 @@ def test_model(net,save_path,test_size):
   
 if __name__ == '__main__':
     # load trained model path
-    save_path = 'Place your trained model path here'
+    save_path = "./audio_image_best_{}.pth".format(args.dataset)
     test_model(net,save_path,args.batch_size)
