@@ -18,7 +18,7 @@ class Visual_Modality_Attention(nn.Module):
     
     def forward(self, img, audio):
         W_q_a = self.q_a(audio)  # Q: batch_size * seq_len * dim_k
-        W_q_v = self.q_a(img)  # Q: batch_size * seq_len * dim_k
+        W_q_v = self.q_v(img)  # Q: batch_size * seq_len * dim_k
         W_k_a = self.k_a(audio)
         W_k_v = self.k_v(img) # Q: batch_size * seq_len * dim_k
          
@@ -47,7 +47,7 @@ class Audio_Modality_Attention(nn.Module):
     
     def forward(self, img, audio):
         W_q_a = self.q_a(audio)  # Q: batch_size * seq_len * dim_k
-        W_q_v = self.q_a(img)  # Q: batch_size * seq_len * dim_k
+        W_q_v = self.q_v(img)  # Q: batch_size * seq_len * dim_k
         w_k_a = self.k_a(audio)
         W_k_v = self.k_v(img) # Q: batch_size * seq_len * dim_k
          
