@@ -145,7 +145,7 @@ class CrossModal_NN(nn.Module):
         # out_audio_feature = F.normalize(out_audio_feature, dim=-1)
 
         visual_predict = self.classifier_visual(out_visual_feature)
-        audio_predict = self.classifier_visual(out_audio_feature)
+        audio_predict = self.classifier_audio(out_audio_feature)
 
         return out_visual_feature, out_audio_feature, visual_predict, audio_predict,self.logit_scale.exp()
 
